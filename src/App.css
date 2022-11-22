@@ -2,3 +2,9 @@
   margin: 1rem;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.text-field {
+  height: 16em;
+  width: 40em;
+  margin: 6px;
+}
