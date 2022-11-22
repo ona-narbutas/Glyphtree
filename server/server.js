@@ -3,7 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
-// require controllers here
+// require routes here
 const savedRootsRouter = require('./routes/savedRootsRouter.js');
 
 const PORT = 3000;
@@ -12,6 +12,9 @@ const app = express();
 
 // linking to locally stored DB for now, update to Atlas DB as stretch goal:
 const mongoURI = 'mongodb://localhost/glyphtreedb';
+mongoose.connect(mongoURI);
+
+
 
 app.use(express.json());
 app.use(express.urlencoded());
@@ -24,21 +27,22 @@ app.use('/public', express.static(path.resolve(__dirname, '../public')));
 
 // root:
 app.get('/', (req,res) => {
-  res.sendFile(path.resolve(__dirname, '../public/index.html'));
+  console.log('routing into root');
+  res.status(200).sendFile(path.resolve(__dirname, '../public/index.html'));
 })
 
 // routes to database:
 app.use('/savedRoots', savedRootsRouter);
 
 // 404 error handler
-app.use('*', (req, res, next) => {
-  const err = {
-    log: 'Request to unknown path',
-    status: 400,
-    message: { err: 'Not found' }
-  }
-  return next(err);
-})
+// app.use('*', (req, res, next) => {
+//   const err = {
+//     log: 'Request to unknown path',
+//     status: 404,
+//     message: { err: 'Not found' }
+//   }
+//   return next(err);
+// })
 
 // global error handler
 app.use((err, req, res, next) => {

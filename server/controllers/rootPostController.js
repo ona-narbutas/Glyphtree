@@ -6,11 +6,13 @@ const rootPostController = {}
 // save root posts to db
 rootPostController.saveRoot = async (req, res, next) => {
   // grab content of post off req.body
-  const postContent = req.body
+  console.log(req.body);
   // create new post document and save to db -- make sure front end sends content with key of 'content'
-  const newRootPost = new RootPost({postContent})
+  const newRootPost = new RootPost({content: req.body.content})
+  console.log('instantiated model: ', newRootPost);
   try {
     const savedRoot = await newRootPost.save();
+    console.log('saved');
     res.locals.savedRoot = savedRoot;
     return next();
   } catch(err) {
