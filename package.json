@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/ona-narbutas/Glyphtree.git"
   },
-  "author": "",
+  "author": "Ona Narbutas",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ona-narbutas/Glyphtree/issues"
@@ -19,9 +19,12 @@
   "homepage": "https://github.com/ona-narbutas/Glyphtree#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "mongoose": "^6.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hot-loader": "^4.13.1"
+    "react-hot-loader": "^4.13.1",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",

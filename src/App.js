@@ -7,7 +7,7 @@ class App extends Component {
       <div className='App'>
         <h1>Glyphtree</h1>
       </div>
-    )
+    );
   }
 }
 
