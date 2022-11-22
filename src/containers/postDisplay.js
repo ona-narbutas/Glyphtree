@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state =>({
+  newPost: state.posts.newPost
+})
+
+const mapDispatchToProps = dispatch => ({
+  newPost: (postData) => dispatch(newPostActionCreator(postData))
+})
+
 import NewPost from '../components/NewPost';
 
-export default class PostDisplay extends React.Component {
+class PostDisplay extends React.Component {
   render() {
     return (
       <NewPost />
     )
   }
-  sendPost() {
-    // get text from textarea with id 'root-post'
-    // fire action creator to update state with new post
-    // send new post to DB
-  }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDisplay);
