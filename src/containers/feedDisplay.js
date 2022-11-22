@@ -6,10 +6,12 @@ const mapStateToProps = state => ({
   newPost: state.posts.newPost
 })
 
-export default class FeedDisplay extends React.Component {
+class FeedDisplay extends React.Component {
   render() {
     return (
-      <LatestUserPost />
+      <LatestUserPost newPost={this.props.newPost}/>
     )
   }
 }
+
+export default connect(mapStateToProps, null)(FeedDisplay);
