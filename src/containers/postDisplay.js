@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { enterTextActionCreator } from '../actions/actions';
+import { newPostActionCreator } from '../actions/actions';
 
 const mapStateToProps = state =>({
-  newPost: state.posts.newPost
+  newPost: state.posts.newPost,
+  textEntry: state.posts.textEntry
 })
 
 const mapDispatchToProps = dispatch => ({
-  newPost: (postData) => dispatch(newPostActionCreator(postData))
+  sendPost: (postData) => dispatch(newPostActionCreator(postData)), // create post on button click
+  enterText: () => dispatch(enterTextActionCreator(document.querySelector('#root-post').value)) // update current state of textEntry as text is entered
 })
 
 import NewPost from '../components/NewPost';
@@ -14,7 +18,10 @@ import NewPost from '../components/NewPost';
 class PostDisplay extends React.Component {
   render() {
     return (
-      <NewPost />
+      <NewPost 
+        sendPost = {this.props.sendPost} 
+        enterText = {this.props.enterText}
+      />
     )
   }
 }

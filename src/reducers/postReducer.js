@@ -10,7 +10,9 @@ function postReducer (state = initialState, action) {
     case types.NEW_POST:
       return Object.assign({}, state, {newPost: action.payload});
     case types.ENTER_TEXT:
-      return Object.assign({}, state, {textEntry: action.payload};)
+      console.log('ENTER_TEXT reducer fired')
+      console.log('state.textEntry: ', state.textEntry)
+      return Object.assign({}, state, {textEntry: action.payload});
     default:
       return state;
   }
