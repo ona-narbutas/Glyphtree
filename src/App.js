@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../public/App.css';
 import PostDisplay from './containers/postDisplay';
 import FeedDisplay from './containers/feedDisplay';
 

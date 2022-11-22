@@ -14,3 +14,5 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   // ADD MIDDLEARE AND RESPONSE OBJECT
 })
+
+module.exports = router;
