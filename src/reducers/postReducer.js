@@ -8,6 +8,7 @@ const initialState = {
 function postReducer (state = initialState, action) {
   switch (action.type) {
     case types.NEW_POST:
+      console.log('updating newPost state to: ', action.payload)
       return Object.assign({}, state, {newPost: action.payload});
     case types.ENTER_TEXT:
       console.log('ENTER_TEXT reducer fired')

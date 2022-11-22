@@ -19,6 +19,8 @@ class PostDisplay extends React.Component {
   render() {
     return (
       <NewPost 
+        textEntry = {this.props.textEntry} 
+        newPost = {this.props.newPost}
         sendPost = {this.props.sendPost} 
         enterText = {this.props.enterText}
       />
