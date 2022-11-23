@@ -1,4 +1,5 @@
 // require RootPost model
+const { default: mongoose } = require('mongoose');
 const RootPost = require('../models/rootPostModel');
 
 const rootPostController = {}
@@ -21,6 +22,27 @@ rootPostController.saveRoot = async (req, res, next) => {
       log: 'Error at rootPostController.saveRoot middleware: ' + err,
       status: 400,
       message: {err: 'Unable to save post'}
+    }
+    return next(error);
+  }
+}
+
+rootPostController.loadRoots = async (req, res, next) => {
+  try {
+    const foundRoots = await RootPost.find();
+    console.log(foundRoots);
+    const sortedRoots = {};
+    for (const entry in foundRoots) {
+      const id = foundRoots[entry]._id;
+      sortedRoots[id] = foundRoots[entry];
+    }
+    res.locals.foundRoots = sortedRoots;
+    return next();
+  } catch(err) {
+    const error = {
+      log: 'Error at rootPostController.loadRoots middleware' + err,
+      status: 400,
+      message: {err: 'Unable to load posts'}
     }
     return next(error);
   }

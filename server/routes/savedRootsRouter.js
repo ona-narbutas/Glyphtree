@@ -5,9 +5,9 @@ const rootPostController = require('../controllers/rootPostController.js')
 const router = express.Router();
 
 // request to get saved root posts
-router.get('/', (req, res, next) => {
+router.get('/', rootPostController.loadRoots, (req, res, next) => {
   // ADD MIDDLEWARE AND RESPONSE OBJECT
-  res.status(200).json('test');
+  res.status(200).json(res.locals.foundRoots);
 })
 
 
