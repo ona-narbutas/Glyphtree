@@ -3,7 +3,8 @@ import * as types from '../actions/actionTypes'
 const initialState = {
   newPost: '',
   textEntry: '',
-  feed: {}
+  feed: {},
+  parentId: ''
 };
 
 function postReducer (state = initialState, action) {
@@ -16,8 +17,13 @@ function postReducer (state = initialState, action) {
     case types.ENTER_TEXT:
       return Object.assign({}, state, {textEntry: action.payload});
     case types.FEED:
-      console.log('FEED reducer fired with payload: ', action.payload)
-      return ({}, state, {feed: action.payload})
+      return Object.assign({}, state, {feed: action.payload})
+    case types.CONTINUE_TEXT:
+      console.log('CONTINUE_TEXT case reducer fired with payload: ', action.payload)
+      return Object.assign({}, state, {
+        parentId: action.payload,
+        textEntry: ''
+      })
     default:
       return state;
   }

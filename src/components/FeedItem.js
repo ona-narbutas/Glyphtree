@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 export default function FeedItem (props) {
   function clickHandler() {
+    console.log('parentId in click: ', props._id);
     props.continue(props._id)
   }
   return (
@@ -9,7 +10,7 @@ export default function FeedItem (props) {
       {props.content}
       <div className='button-container'>
         {/* <button onClick={clickHandler}>Continue!</button> */}
-        <button onClick={props.continue}>Continue!</button>
+        <button onClick={clickHandler}>Continue!</button>
       </div>
       </div>
   )

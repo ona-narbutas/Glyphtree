@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import auxFunctions from '../actions/auxFunctions.js';
 import { feedActionCreator } from '../actions/actions';
+import { continueTextActionCreator } from '../actions/actions';
 import FeedItem from '../components/FeedItem.js'
 
 const mapStateToProps = state => ({

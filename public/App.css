@@ -3,6 +3,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+textarea {
+  resize: none;
+}
+
 .text-field {
   height: 16em;
   width: 49em;

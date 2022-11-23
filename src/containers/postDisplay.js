@@ -7,7 +7,8 @@ import NewPost from '../components/NewPost';
 
 const mapStateToProps = state => ({
   newPost: state.posts.newPost,
-  textEntry: state.posts.textEntry
+  textEntry: state.posts.textEntry,
+  parentId: state.posts.parentId
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +28,7 @@ class PostDisplay extends React.Component {
         newPost = {this.props.newPost}
         sendPost = {this.props.sendPost} 
         enterText = {this.props.enterText}
+        parentId = {this.props.parentId}
       />
     )
   }
