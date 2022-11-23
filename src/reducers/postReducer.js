@@ -8,6 +8,25 @@ const initialState = {
 function postReducer (state = initialState, action) {
   switch (action.type) {
     case types.NEW_POST:
+      // case types.SAVE_POST_REQUEST:
+      //   return {
+      //     ...state,
+      //     loading: true
+      //   }
+      // case types.SAVE_POST_SUCCESS:
+      //   return {
+      //     ...state,
+      //     loading: false,
+      //     newPost: action.payload,
+      //     textEntry: '',
+      //     error: ''
+      //   }
+      // case types.SAVE_POST_FAILURE: 
+      //   return {
+      //     ...state,
+      //     loading: false,
+      //     error: action.payload
+      //   }
       return Object.assign({}, state, {
         newPost: action.payload,
         textEntry: ''

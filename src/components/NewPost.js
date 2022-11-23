@@ -6,6 +6,7 @@ export default function NewPost(props) {
   async function clickHandler() {
     // props.sendPost(auxFunctions.newPostIntermediary(props.textEntry));
     const data = await auxFunctions.newPostIntermediary(props.textEntry);
+    props.sendPost(data);
     console.log('data in click handler: ', data);
     document.querySelector('#root-post').value = '';
   }
