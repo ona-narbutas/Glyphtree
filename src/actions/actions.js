@@ -1,8 +1,8 @@
 import * as types from './actionTypes.js';
 
-export const newPostActionCreator = (postData) => ({
+export const newPostActionCreator = (postContent) => ({
   type: types.NEW_POST,
-  payload: postData
+  payload: postContent
 })
 
 export const enterTextActionCreator = (textEntry) => ({

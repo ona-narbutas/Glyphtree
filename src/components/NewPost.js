@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PostDisplay from '../containers/postDisplay';
-
+import auxFunctions from '../actions/auxFunctions.js'
 
 export default function NewPost(props) {
-  function clickHandler() {
-    props.sendPost(props.textEntry);
+  async function clickHandler() {
+    // props.sendPost(auxFunctions.newPostIntermediary(props.textEntry));
+    const data = await auxFunctions.newPostIntermediary(props.textEntry);
+    console.log('data in click handler: ', data);
     document.querySelector('#root-post').value = '';
   }
   return (

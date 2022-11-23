@@ -9,6 +9,9 @@ const mapStateToProps = state => ({
 
 class FeedDisplay extends React.Component {
   render() {
+    console.log('hello?')
+    console.log('in feed display: ', this.props.newPost)
+    // async function waitForData()
     return (
       <div>
         <LatestUserPost newPost={this.props.newPost} />

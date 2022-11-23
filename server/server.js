@@ -14,8 +14,6 @@ const app = express();
 const mongoURI = 'mongodb://localhost/glyphtreedb';
 mongoose.connect(mongoURI);
 
-
-
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -32,7 +30,10 @@ app.get('/', (req,res) => {
 })
 
 // routes to database:
-app.use('/savedRoots', savedRootsRouter);
+app.use('/savedRoots', (req, res, next) => {
+  console.log('/savedRoots route entered');
+  return next();
+}, savedRootsRouter);
 
 // 404 error handler
 // app.use('*', (req, res, next) => {

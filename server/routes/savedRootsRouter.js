@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
 
 
 // request to add new root post to DB
-router.post('/', rootPostController.saveRoot, (req, res, next) => {
+router.post('/', rootPostController.saveRoot, (req, res) => {
   res.status(200).json(res.locals.savedRoot);
 })
 

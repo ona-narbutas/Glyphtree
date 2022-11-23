@@ -11,7 +11,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  sendPost: (postData) => dispatch(newPostActionCreator(postData)), // create post on button click
+  sendPost: (postData) => {
+    console.log(postData);
+    dispatch(newPostActionCreator(postData))
+  }, // create post on button click
   enterText: () => dispatch(enterTextActionCreator(document.querySelector('#root-post').value)) // update current state of textEntry as text is entered
 })
 

@@ -12,8 +12,9 @@ rootPostController.saveRoot = async (req, res, next) => {
   console.log('instantiated model: ', newRootPost);
   try {
     const savedRoot = await newRootPost.save();
-    console.log('saved');
+    console.log('saved: ', savedRoot);
     res.locals.savedRoot = savedRoot;
+    console.log('saved to locals: ', res.locals.savedRoot)
     return next();
   } catch(err) {
     const error = {
