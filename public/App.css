@@ -42,8 +42,18 @@ textarea {
   display: flex;
 }
 
-.continue-focus {
-  display: fixed;
-  top: 20;
-  left: 20;
+.continue-container {
+  position: fixed;
+  left: 6em;
+  padding: 32px;
+  border-radius: .5em;
+  background-color:  lightgray;
 }
+
+.continue-field {
+  width: 50em;
+  height: 40em;
+  border-radius: .5em;
+}
+
+
