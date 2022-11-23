@@ -15,6 +15,7 @@ const auxFunctions = {
   loadFeedIntermediary: async () => {
     const feedResponse = await fetch('/savedRoots');
     const parsedResponse = await feedResponse.json();
+    console.log('parsed response in loadFeedIntermediary: ', parsedResponse)
     return parsedResponse;
   }
 }

@@ -38,10 +38,12 @@ class RootsDisplay extends React.Component {
       <>{feedItemArray}</>
     )
   }
-  componentDidMount() {
+  async componentDidMount () {
     // execute auxiliary function that fetches feed
     // execute this.props.loadFeed with the result
-    return this.props.loadFeed(auxFunctions.loadFeedIntermediary());
+    // return this.props.loadFeed(auxFunctions.loadFeedIntermediary());
+    const feed = await auxFunctions.loadFeedIntermediary();
+    this.props.loadFeed(feed);
   }
 }
 
