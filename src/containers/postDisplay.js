@@ -16,7 +16,10 @@ const mapDispatchToProps = dispatch => ({
     console.log(postData);
     dispatch(newPostActionCreator(postData))
   }, // create post on button click
-  enterText: () => dispatch(enterTextActionCreator(document.querySelector('#root-post').value)) // update current state of textEntry as text is entered
+  enterText: () => {
+    const textBox = (document.querySelector('#root-post')) ? document.querySelector('#root-post') : document.querySelector('#continue-post');
+    dispatch(enterTextActionCreator(textBox.value))
+  } // update current state of textEntry as text is entered
 })
 
 

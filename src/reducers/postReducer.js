@@ -15,6 +15,7 @@ function postReducer (state = initialState, action) {
         textEntry: ''
       });
     case types.ENTER_TEXT:
+      console.log('current state: ', state.textEntry)
       return Object.assign({}, state, {textEntry: action.payload});
     case types.FEED:
       return Object.assign({}, state, {feed: action.payload})
