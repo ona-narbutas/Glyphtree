@@ -10,6 +10,13 @@ export default function NewPost(props) {
     console.log('data in click handler: ', data);
     document.querySelector('#root-post').value = '';
   }
+
+  async function continueClick() {
+    const childData = await auxFunctions.submitChildIntermediary({parentId: props.parentId}, {content: props.textEntry});
+    submitChild(childData);
+  }
+
+
   console.log('parentId: ', props.parentId)
   if (!props.parentId) {
     return (
@@ -41,7 +48,7 @@ export default function NewPost(props) {
             onChange={props.enterText}></textarea>
           <br></br>
           <div className='button-container'>
-            <button type='button' >Post</button>
+            <button type='button' onClick={continueClick}>Post</button>
           </div>
         </form>
       </div>

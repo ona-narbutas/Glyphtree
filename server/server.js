@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 // require routes here
 const savedRootsRouter = require('./routes/savedRootsRouter.js');
+const savedBranchesRouter = require('./routes/savedBranchesRouter.js');
 
 const PORT = 3000;
 
@@ -34,6 +35,11 @@ app.use('/savedRoots', (req, res, next) => {
   console.log('/savedRoots route entered');
   return next();
 }, savedRootsRouter);
+
+app.use('/savedBranches', (req, res, next) => {
+  console.log('routing to /savedBranches')
+  return next
+}, savedBranchesRouter)
 
 // 404 error handler
 // app.use('*', (req, res, next) => {

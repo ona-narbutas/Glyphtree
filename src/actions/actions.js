@@ -19,3 +19,8 @@ export const continueTextActionCreator = (parentId) => ({
   type: types.CONTINUE_TEXT,
   payload: parentId
 })
+
+export const submitChildActionCreator = (childData) => ({
+  type: types.SUBMIT_CHILD,
+  payload: childData
+})

@@ -1,5 +1,6 @@
 // require RootPost model
 const { default: mongoose } = require('mongoose');
+const { findOneAndUpdate } = require('../models/rootPostModel');
 const RootPost = require('../models/rootPostModel');
 
 const rootPostController = {}
@@ -13,7 +14,7 @@ rootPostController.saveRoot = async (req, res, next) => {
   console.log('instantiated model: ', newRootPost);
   try {
     const savedRoot = await newRootPost.save();
-    console.log('saved: ', savedRoot);
+    console.log('saved root: ', savedRoot);
     res.locals.savedRoot = savedRoot;
     console.log('saved to locals: ', res.locals.savedRoot)
     return next();
@@ -21,7 +22,7 @@ rootPostController.saveRoot = async (req, res, next) => {
     const error = {
       log: 'Error at rootPostController.saveRoot middleware: ' + err,
       status: 400,
-      message: {err: 'Unable to save post'}
+      message: {err: 'Unable to save root post'}
     }
     return next(error);
   }
@@ -46,6 +47,25 @@ rootPostController.loadRoots = async (req, res, next) => {
     }
     return next(error);
   }
+}
+
+rootPostController.addChild = async (req, res, next) => {
+  try {
+    // call findOneAndUpdate on RootPost using the parentid, add res.locals.savedBranch._id to the children array
+    const parent = await findOne({_id: req.body.parentId});
+    const updatedChildren = parent.children.push(res.locals.savedChild._id);
+    await findOneAndUpdate({_id: req.body.parentId}, {children: updatedChildren});
+    // assuming no error, return next
+    return next();
+  } catch(err) {
+    const error = {
+      log: 'Error at rootPostController.addChild middleware' + err,
+      status: 400,
+      message: {err: 'Unable to link to parent'}
+    }
+    return next(error);
+  }
+
 }
 
 module.exports = rootPostController;

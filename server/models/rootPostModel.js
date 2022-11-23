@@ -7,6 +7,6 @@ const rootPostSchema = new Schema({
   createdAt: { type: Date, default: Date.now},
   // children is an array that will contain all children (or references thereto) of te root post
   children: []
-})
+});
 
 module.exports = mongoose.model('RootPost', rootPostSchema);

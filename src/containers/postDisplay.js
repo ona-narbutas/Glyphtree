@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { enterTextActionCreator } from '../actions/actions';
 import { newPostActionCreator } from '../actions/actions';
+import { submitChildActionCreator } from '../actions/actions'
 
 import NewPost from '../components/NewPost';
 
@@ -19,7 +20,11 @@ const mapDispatchToProps = dispatch => ({
   enterText: () => {
     const textBox = (document.querySelector('#root-post')) ? document.querySelector('#root-post') : document.querySelector('#continue-post');
     dispatch(enterTextActionCreator(textBox.value))
-  } // update current state of textEntry as text is entered
+  }, // update current state of textEntry as text is entered
+  submitChild: (childData) => {
+    console.log(childData);
+    dispatch(submitChildActionCreator(childData))
+  }
 })
 
 

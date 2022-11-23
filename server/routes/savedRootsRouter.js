@@ -2,6 +2,7 @@ const express = require('express');
 
 // require controllers here
 const rootPostController = require('../controllers/rootPostController.js')
+
 const router = express.Router();
 
 // request to get saved root posts
