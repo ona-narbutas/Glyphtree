@@ -37,6 +37,7 @@ class PostDisplay extends React.Component {
         sendPost = {this.props.sendPost} 
         enterText = {this.props.enterText}
         parentId = {this.props.parentId}
+        submitChild = {this.props.submitChild}
       />
     )
   }

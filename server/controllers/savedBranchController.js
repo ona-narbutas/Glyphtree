@@ -1,11 +1,13 @@
 // require RootPost model
 const { default: mongoose } = require('mongoose');
 const RootPost = require('../models/rootPostModel');
+const Branch = require('../models/branchModel.js')
 
 const savedBranchController = {}
 
 // save new branch to DB
-savedBranchController.createBranch = async (req, res, next) {
+savedBranchController.createBranch = async (req, res, next) => {
+  console.log('req.body: ', req.body)
   const newBranch = await new Branch({content: req.body.content, parentId: req.body.parentId})
   res.locals.parentId = req.body.parentId;
   try {

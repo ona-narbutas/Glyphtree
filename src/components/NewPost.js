@@ -12,8 +12,15 @@ export default function NewPost(props) {
   }
 
   async function continueClick() {
-    const childData = await auxFunctions.submitChildIntermediary({parentId: props.parentId}, {content: props.textEntry});
-    submitChild(childData);
+    console.log('props: ', props)
+    const dataToPass = {
+      content: props.textEntry,
+      parentId: props.parentId
+    };
+    console.log('dataToPass: ', dataToPass)
+    const childData = await auxFunctions.submitChildintermediary(dataToPass);
+    console.log('data in continueClick: ', childData);
+    props.submitChild(childData);
   }
 
 

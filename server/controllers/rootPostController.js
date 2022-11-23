@@ -52,9 +52,11 @@ rootPostController.loadRoots = async (req, res, next) => {
 rootPostController.addChild = async (req, res, next) => {
   try {
     // call findOneAndUpdate on RootPost using the parentid, add res.locals.savedBranch._id to the children array
-    const parent = await findOne({_id: req.body.parentId});
-    const updatedChildren = parent.children.push(res.locals.savedChild._id);
-    await findOneAndUpdate({_id: req.body.parentId}, {children: updatedChildren});
+    const parent = await RootPost.findOne({_id: req.body.parentId});
+    console.log('parent: ', parent);
+    console.log('saved child: ', res.locals.savedBranch);
+    const updatedChildren = parent.children.push(res.locals.savedBranch._id);
+    await RootPost.findOneAndUpdate({_id: req.body.parentId}, {children: updatedChildren});
     // assuming no error, return next
     return next();
   } catch(err) {

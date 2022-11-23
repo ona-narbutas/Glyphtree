@@ -4,8 +4,9 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
 // require routes here
-const savedRootsRouter = require('./routes/savedRootsRouter.js');
-const savedBranchesRouter = require('./routes/savedBranchesRouter.js');
+// const savedRootsRouter = require('./routes/savedRootsRouter.js');
+// const savedBranchesRouter = require('./routes/savedBranchesRouter.js');
+const apiRouter = require('./routes/apiRouter.js');
 
 const PORT = 3000;
 
@@ -30,16 +31,21 @@ app.get('/', (req,res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../public/index.html'));
 })
 
-// routes to database:
-app.use('/savedRoots', (req, res, next) => {
-  console.log('/savedRoots route entered');
+app.use('/api', apiRouter, (req, res, next) => {
+  console.log('/api route entered');
   return next();
-}, savedRootsRouter);
+}, apiRouter)
 
-app.use('/savedBranches', (req, res, next) => {
-  console.log('routing to /savedBranches')
-  return next
-}, savedBranchesRouter)
+// routes to database:
+// app.use('/api/savedRoots', (req, res, next) => {
+//   console.log('/savedRoots route entered');
+//   return next();
+// }, savedRootsRouter);
+
+// app.use('/api/savedBranches', (req, res, next) => {
+//   console.log('routing to /savedBranches')
+//   return next
+// }, savedBranchesRouter)
 
 // 404 error handler
 // app.use('*', (req, res, next) => {
