@@ -5,7 +5,7 @@ export default function LatestUserPost (props) {
   return(
     <div id='latest-user-post'>
       <p>test</p>
-      <p>{props.newPost}</p>
+      <p>{props.newPost.content}</p>
     </div>
   )
 }
