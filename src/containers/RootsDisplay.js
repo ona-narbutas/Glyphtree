@@ -27,13 +27,14 @@ class RootsDisplay extends React.Component {
     // this.props.loadFeed(auxFunctions.loadFeedIntermediary());
     console.log('rendering RootsDisplay')
     console.log('RootDisplay props:', this.props)
-    const feedItemArray = [];
+    let feedItemArray = [];
     for (const item in this.props.feed) {
-      console.log('iterating over this.props.feed')
-      if (!document.querySelector(`#${this.props.feed[item]}`)) {
-        feedItemArray.push(<FeedItem _id={this.props.feed[item]._id}/>)
+      // console.log('iterating over this.props.feed')
+      if (!document.getElementById(`${this.props.feed[item]._id}`)) {
+        feedItemArray.push(<FeedItem _id={this.props.feed[item]._id} key={this.props.feed[item]._id} content={this.props.feed[item].content}/>)
       }
     }
+    feedItemArray = feedItemArray.reverse();
     return (
       <>{feedItemArray}</>
     )
