@@ -15,7 +15,9 @@ export default function NewPost(props) {
       <form className='root-post'>
         <textarea className='text-field' name='text-field' id='root-post' placeholder='Our story begins...' onChange={props.enterText}></textarea>
         <br></br>
-        <button type='button' onClick={clickHandler}>Post</button>
+        <div className='button-container'>
+          <button type='button' onClick={clickHandler}>Post</button>
+        </div>
       </form>
     </div>
   )

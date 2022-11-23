@@ -11,6 +11,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loadFeed: (feedData) => {
     dispatch(feedActionCreator(feedData))
+  },
+  continue: (parentId) => {
+    dispatch(continueTextActionCreator(parentId))
   }
 })
 
@@ -31,7 +34,11 @@ class RootsDisplay extends React.Component {
     for (const item in this.props.feed) {
       // console.log('iterating over this.props.feed')
       if (!document.getElementById(`${this.props.feed[item]._id}`)) {
-        feedItemArray.push(<FeedItem _id={this.props.feed[item]._id} key={this.props.feed[item]._id} content={this.props.feed[item].content}/>)
+        feedItemArray.push(<FeedItem _id={
+          this.props.feed[item]._id} 
+          key={this.props.feed[item]._id} 
+          content={this.props.feed[item].content}
+          continue={this.props.continue} />)
       }
     }
     feedItemArray = feedItemArray.reverse();

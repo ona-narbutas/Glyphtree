@@ -5,6 +5,41 @@
 
 .text-field {
   height: 16em;
-  width: 40em;
+  width: 49em;
   margin: 6px;
+  border-radius: .5em;
+  box-shadow: 10px 5px 5px aquamarine;
+}
+
+.root-post {
+  width: 42em;
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+}
+
+.feed-box {
+  height: 8em;
+  width: 40em;
+  margin-left: 6px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  padding: 6px;
+  border: 1px solid gray;
+  box-shadow: 10px 5px 5px aquamarine;
+  border-radius: .5em;
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+}
+
+.button-container {
+  justify-content: flex-end;
+  display: flex;
+}
+
+.continue-focus {
+  display: fixed;
+  top: 20;
+  left: 20;
 }

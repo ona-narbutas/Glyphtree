@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 
 export default function FeedItem (props) {
-  console.log('rendering FeedItem')
-  console.log('FeedItem props ', props)
+  function clickHandler() {
+    props.continue(props._id)
+  }
   return (
-    <div id={props._id}>{props.content}</div>
+    <div className='feed-box' id={props._id}>
+      {props.content}
+      <div className='button-container'>
+        {/* <button onClick={clickHandler}>Continue!</button> */}
+        <button onClick={props.continue}>Continue!</button>
+      </div>
+      </div>
   )
 }
