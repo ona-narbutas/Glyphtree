@@ -1,5 +1,4 @@
 import * as types from './actionTypes.js';
-import auxFunctions from './auxFunctions.js';
 
 export const newPostActionCreator = (postContent) => ({
   type: types.NEW_POST,
@@ -16,40 +15,7 @@ export const feedActionCreator = (feed) => ({
   payload: feed
 })
 
-// export const savePost = function (postContent) {
-//   return function() {
-//     dispatch(savePostRequest())
-//     fetch('/savedRoots', {
-//       method: 'POST',
-//       headers: { 
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({content: textEntry})
-//     }).then(response => {
-//       response.json()
-//     }).then(data => {
-//       dispatch(savePostSuccess(data))
-//     }).catch(error => {
-//       dispatch(savePostFailure(error))
-//     })
-//   }
-// }
-// export const savePostRequest = () => {
-//   return {
-//     type: types.SAVE_POST_REQUEST
-//   }
-// }
-
-// export const savePostSuccess = (data) => {
-//   return {
-//     type: types.SAVE_POST_SUCCESS,
-//     payload: data
-//   }
-// }
-
-// export const savePostFailure = (error) => {
-//   return {
-//     type: types.SAVE_POST_FAILURE,
-//     payload: error
-//   }
-// }
+export const continueTextActionCreator = (parentId) => ({
+  type: types.CONTINUE_TEXT,
+  payload: parentId
+})
