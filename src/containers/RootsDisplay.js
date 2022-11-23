@@ -24,10 +24,14 @@ class RootsDisplay extends React.Component {
   }
   render() {
     // for each item in this.props.feed, if querySelector for that item's id is null, add a FeedItem component to an array that will be renderd
+    // this.props.loadFeed(auxFunctions.loadFeedIntermediary());
+    console.log('rendering RootsDisplay')
+    console.log('RootDisplay props:', this.props)
     const feedItemArray = [];
     for (const item in this.props.feed) {
+      console.log('iterating over this.props.feed')
       if (!document.querySelector(`#${this.props.feed[item]}`)) {
-        feedItemArray.push(<FeedItem />)
+        feedItemArray.push(<FeedItem _id={this.props.feed[item]._id}/>)
       }
     }
     return (

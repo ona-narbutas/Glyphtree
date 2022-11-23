@@ -8,15 +8,13 @@ const auxFunctions = {
       },
       body: JSON.stringify({content: textEntry})
     })
-    console.log('response in intermediary func: ', postResponse)
     const parsedResponse = await postResponse.json();
-    console.log('parsed response: ', parsedResponse)
     return parsedResponse;
   },
   
   loadFeedIntermediary: async () => {
     const feedResponse = await fetch('/savedRoots');
-    const parsedResponse = await feedResponse.parse;
+    const parsedResponse = await feedResponse.json();
     return parsedResponse;
   }
 }

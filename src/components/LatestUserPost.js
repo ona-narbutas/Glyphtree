@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
 export default function LatestUserPost (props) {
-  console.log('received state: ', props.newPost)
-  console.log('id', props.newPostId)
+  const currentID = (props.newPost) ? props.newPost._id : 0;
+  const content = (props.newPost) ? props.newPost.content : '';
   return(
-    <div className='latest-user-post' id={props.newPostId}>
-      <p>{props.newPost.content}</p>
+    <div className='latest-user-post' id={currentID}>
+      <p>{content}</p>
     </div>
   )
 }
