@@ -14,7 +14,7 @@ class FeedDisplay extends React.Component {
     // async function waitForData()
     return (
       <div>
-        <LatestUserPost newPost={this.props.newPost} />
+        <LatestUserPost newPost={this.props.newPost} newPostId={this.props.newPost._id} />
         <RootsDisplay />
       </div>
     )

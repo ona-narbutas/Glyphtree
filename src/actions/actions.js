@@ -11,6 +11,11 @@ export const enterTextActionCreator = (textEntry) => ({
   payload: textEntry
 })
 
+export const feedActionCreator = (feed) => ({
+  type: types.FEED,
+  payload: feed
+})
+
 // export const savePost = function (postContent) {
 //   return function() {
 //     dispatch(savePostRequest())
