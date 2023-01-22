@@ -3,7 +3,7 @@
     "module": "CommonJS",
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "target": "ES6",
     "allowSyntheticDefaultImports": true,
     "types": ["react/next", "react-dom/next"]
