@@ -1,20 +1,22 @@
-const express = require('express');
-const path = require('path');
-const dotenv = require('dotenv');
+import express, { Express, Request, Response, Application} from "express";
+import path from "path";
+import dotenv from "dotenv";
+
+import type { MiddlewareError } from '../types'
 
 dotenv.config();
-const { PORT } = process.env;
 
-const app = express();
+const app: Application = express();
+const { PORT } = process.env;
+app.use(express.json())
 
 // root:
-app.use('/', (req,res) => {
-  console.log('routing into root');
+app.get('/', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
 // Global Error Handler
-app.use((err, req, res, next) => {
+app.use((err: MiddlewareError, req: Request, res: Response, next: Function) => {
   const defaultErr = {
     log: "Express error handler caught unknown middleware error",  
     status: 500,

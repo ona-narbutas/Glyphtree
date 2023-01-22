@@ -8,3 +8,7 @@ export type Post = {
   parent_id: (number | null),
   author_id: number,
 }
+
+export interface MiddlewareError extends Error {
+  log: string,
+}
