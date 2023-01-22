@@ -3,13 +3,13 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: './client/index.js',
+  entry: './client/index.tsx',
   mode: process.env.NODE_ENV,
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules|browser_components)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -18,12 +18,17 @@ module.exports = {
         }
       },
       {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: ['ts-loader'],
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       }
     ]
   },
-  resolve: { extensions: ['*', '.js', '.jsx']},
+  resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx']},
   output: {
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/dist',

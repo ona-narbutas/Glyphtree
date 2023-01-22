@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "target": "ES6",
+    "allowSyntheticDefaultImports": true,
+    "types": ["react/next", "react-dom/next"]
+  },
+  "include": [
+    "./client/*.ts",
+    "./client/*.tsx",
+    "./client/**/*.ts",
+    "./client/**/*.tsx",
+    "./server/*.ts",
+    "./server/**/*.ts",
+    "./server/**/**/*.ts",
+  ]
+}
