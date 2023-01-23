@@ -15,6 +15,10 @@ app.get('/', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+app.get('*', (req: Request, res: Response) => {
+  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
+});
+
 // Global Error Handler
 app.use((err: MiddlewareError, req: Request, res: Response, next: Function) => {
   const defaultErr = {
