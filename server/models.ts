@@ -26,4 +26,37 @@ CREATE TABLE tree_titles(
   title varchar(255) NOT NULL
 )
 
+USER FOLLOWS:
+CREATE TABLE user_follows(
+  follow_id serial PRIMARY KEY,
+  subscriber_id int NOT NULL,
+  subject_id int NOT NULL
+)
+
+USER LIKES:
+CREATE TABLE user_likes(
+  like_id serial PRIMARY KEY,
+  post_id int NOT NULL,
+  user_id int NOT NULL
+)
+
+USER DOGEARS:
+CREATE TABLE user_dogears(
+  dogear_id serial PRIMARY KEY,
+  post_id int NOT NULL,
+  user_id int NOT NULL
+)
+
+TAGS
+CREATE TABLE tags(
+  tag_id serial PRIMARY KEY,
+  tag_text varchar(255) UNIQUE NOT NULL
+)
+
+CREATE TABLE post_tags(
+  post_tag_id serial PRIMARY KEY,
+  tag_id int NOT NULL,
+  post_id int NOT NULL
+) 
+
 */

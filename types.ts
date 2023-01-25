@@ -9,6 +9,20 @@ export type Post = {
   author_id: number,
 }
 
-export interface MiddlewareError extends Error {
-  log: string,
+export interface Props {
+
 }
+
+export type MiddlewareError = {
+  log: string,
+  status: number,
+  message: {
+    err: string
+  }
+}
+
+export type UsersController = {
+  authenticate: Function
+}
+
+export type AuthOperation = ('signUp' | 'logIn');
