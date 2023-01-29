@@ -36,32 +36,63 @@ const App: React.FC<AuthProps> = (props: AuthProps) => {
       },
       body: JSON.stringify(body),
     })
-    console.log('response: ', response);
+    console.log('response: ', await response.json());
+    props.toggleAuth(false);
   }
 
   return (<>
-    <DialogTitle>Sign In</DialogTitle>
+    <DialogTitle>{signUp === false ? 'Sign In' : 'Sign Up'}</DialogTitle>
     <DialogContent>
       <DialogContentText>
-        Please sign in to continue.
-      </DialogContentText>
-      <TextField
+        {signUp === false
+          ? <>
+            Please sign in to continue.
+            <br />
+            <span className='swapAuth'>Don't have an account? 
+              <Button size='small' onClick={() => toggleSignUp(true)}>
+                Sign Up
+              </Button>
+            </span>
+          </>
+          : <>
+            Create your account.
+            <br />
+            <span className='swapAuth'>Already registered? 
+              <Button size='small' onClick={() => toggleSignUp(false)}>
+                Log In
+              </Button>
+            </span>
+          </>
+          }
+        </DialogContentText>
+      {signUp === true &&
+        <TextField 
           fullWidth
-          variant='standard'
-          margin='normal'
-          type='text' 
-          id='email' 
-          placeholder='Email Address'
-          onChange={(e) => dispatch(inputEmail(e.target.value))}
+          variant="standard"
+          margin="normal"
+          type='text'
+          id='username'
+          placeholder='Username'
+          onChange={(e) => dispatch(inputUsername(e.target.value))}
+        />
+      }
+      <TextField
+        fullWidth
+        variant='standard'
+        margin='normal'
+        type='text' 
+        id='email' 
+        placeholder='Email Address'
+        onChange={(e) => dispatch(inputEmail(e.target.value))}
       />
       <TextField
-          fullWidth
-          variant='standard'
-          margin='normal'
-          type='text' 
-          id='password' 
-          placeholder='Password'
-          onChange={(e) => dispatch(inputPassword(e.target.value))}
+        fullWidth
+        variant='standard'
+        margin='normal'
+        type='text' 
+        id='password' 
+        placeholder='Password'
+        onChange={(e) => dispatch(inputPassword(e.target.value))}
       />
       <DialogActions>
         <Button onClick={handleSubmit}>Submit</Button>
