@@ -1,3 +1,5 @@
+import React, { Dispatch } from "react"
+
 export type Post = {
   post_id: number,
   is_root: boolean,
@@ -26,3 +28,19 @@ export type UsersController = {
 }
 
 export type AuthOperation = ('signUp' | 'logIn');
+
+export type FunctionComponent<Props extends {}> = (
+    props: Props,
+    context?: any,
+  ) => JSX.Element | null;
+
+export interface AuthProps {
+  toggleAuth: Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface UserInputType {
+  operation: string,
+  email: string,
+  password: string,
+  username?: string
+}

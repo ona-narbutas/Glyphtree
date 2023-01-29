@@ -5,6 +5,12 @@ import { db } from '../server';
 import bcrypt from 'bcrypt';
 const saltRounds: number = 10;
 
+async function getHash(): Promise<void> {
+  console.log(await bcrypt.hash('devpass', saltRounds));
+};
+
+getHash();
+
 const usersController = {
   authenticate: async (req: Request, res: Response, next: Function) => {
     try {
