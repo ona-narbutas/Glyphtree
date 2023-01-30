@@ -4,7 +4,7 @@ import { Props } from "../../types";
 
 const Post: React.FC<Props> = (props: Props) => {
   return (
-    <></>
+    <>hi!</>
   )
 }
 

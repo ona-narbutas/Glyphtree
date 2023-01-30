@@ -1,7 +1,10 @@
 import express, {Request, Response} from 'express';
 import { AuthOperation, MiddlewareError } from '../../types';
 import { db } from '../server';
+import dotenv from "dotenv";
+dotenv.config();
 
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 const saltRounds: number = 10;
 
@@ -28,6 +31,17 @@ const usersController = {
         const values = [username, email, hash];
         const response = await db.query(queryText, values);
         res.locals.newUser = response.rows[0];
+        res.cookie('Auth', jwt.sign(
+          {
+            user_id: res.locals.newUser.user_id,
+            email: res.locals.newUser.email,
+            username: res.locals.newUser.username,
+          }, 
+          process.env.TOKEN_KEY || 'no_key',
+          {
+            expiresIn: '2h',
+          }
+        ));
 
       // if operation is asking to log in, validate and log in
       } else {
@@ -42,6 +56,17 @@ const usersController = {
 
         const verificationResult: boolean = await bcrypt.compare(password, res.locals.foundUser.password);
         console.log('result: ', verificationResult);
+        res.cookie('Auth', jwt.sign(
+          {
+            user_id: res.locals.foundUser.user_id,
+            email: res.locals.foundUser.email,
+            username: res.locals.foundUser.username,
+          }, 
+          process.env.TOKEN_KEY || 'no_key',
+          {
+            expiresIn: '2h',
+          }
+        ));
         return next();
 
 
