@@ -8,12 +8,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 const saltRounds: number = 10;
 
-async function getHash(): Promise<void> {
-  console.log(await bcrypt.hash('devpass', saltRounds));
-};
-
-getHash();
-
 const usersController = {
   authenticate: async (req: Request, res: Response, next: Function) => {
     try {
@@ -78,6 +72,29 @@ const usersController = {
       return next(error);
     }
     
+  },
+  verifySession: async (req: Request, res: Response, next: Function) => {
+    if (req.cookies.Auth) {
+      try {
+        const auth = jwt.verify(req.cookies.Auth, process.env.TOKEN_KEY || 'no_key');
+        res.locals.signedIn = auth;
+        res.set({
+          'signedIn': true
+        })
+      } catch (err) {
+        res.locals.signedIn = false;
+        res.set({
+          'signedIn' : false,
+        })
+      }
+    } else {
+      res.locals.signedIn = false;
+      res.set({
+        'signedIn': false
+      })
+    }
+    
+    return next();
   }
 }
 

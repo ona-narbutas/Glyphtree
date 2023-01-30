@@ -6,6 +6,7 @@ import { Pool, PoolClient } from 'pg';
 
 import type { MiddlewareError } from '../types'
 import usersRouter from './routes/usersRouter';
+import postsRouter from './routes/postsRouter';
 
 
 dotenv.config();
@@ -36,6 +37,9 @@ app.get('/', (req: Request, res: Response) => {
 
 // users route
 app.use('/users', usersRouter);
+
+// posts route
+app.use('/posts', postsRouter);
 
 
 // Don't send 404 error for unknown routes, instead let react router handle it
