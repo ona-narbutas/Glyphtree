@@ -1,21 +1,15 @@
 const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: './src/index.js',
-
-  output: {
-    path: path.join(__dirname, 'build'),
-    filename: 'bundle.js'
-  },
-
+  entry: './client/index.tsx',
   mode: process.env.NODE_ENV,
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules|browser_components)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -24,26 +18,34 @@ module.exports = {
         }
       },
       {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: ['ts-loader'],
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       }
     ]
   },
-  resolve: { extensions: ['*', '.js', '.jsx']},
+  resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx']},
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    publicPath: '/dist/',
-    filename: 'bundle.js'
+    publicPath: '/dist',
+    filename: 'bundle.js',
   },
   devServer: {
     port: 8080,
+    hot: true,
     proxy: {
-      "/api/**": "http://localhost:3000"
+      '/': {
+        target: 'http://localhost:3000'
+      }
     }
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './client/index.html'
     }),
     new webpack.HotModuleReplacementPlugin()
   ]
