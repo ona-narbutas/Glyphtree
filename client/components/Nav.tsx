@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Dialog from '@mui/material/Dialog';
 
-import { Link }from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Auth from './Auth';
 
@@ -37,7 +37,7 @@ const Nav: React.FC = () => {
             <Button color='inherit' onClick={() => toggleAuth(!showAuth)}>Login</Button>
           </Toolbar>
         </AppBar>
-              {/* Render Auth component when Sign In clicked */}
+      {/* Render Auth component when Sign In clicked */}
       {showAuth && 
       <Dialog 
         open={showAuth}

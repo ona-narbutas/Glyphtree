@@ -11,7 +11,6 @@ import postsRouter from './routes/postsRouter';
 
 dotenv.config();
 const PG_URI = process.env.PG_URI;
-console.log('connection string: ', PG_URI)
 const pool = new Pool({
   connectionString: PG_URI
 });

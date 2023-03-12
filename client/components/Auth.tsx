@@ -13,7 +13,7 @@ import { inputUsername, inputEmail, inputPassword } from '../slices/userInputSli
 
 import type { RootState } from "../store";
 
-const App: React.FC<AuthProps> = (props: AuthProps) => {
+const Auth: React.FC<AuthProps> = (props: AuthProps) => {
   const userInput = useAppSelector((state: RootState) => state.userInput);
   const dispatch = useAppDispatch();
 
@@ -101,4 +101,4 @@ const App: React.FC<AuthProps> = (props: AuthProps) => {
   </>)
 }
 
-export default App;
+export default Auth;
