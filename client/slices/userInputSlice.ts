@@ -15,7 +15,7 @@ const initialState: UserInputState = {
 }
 
 export const userInputSlice = createSlice({
-  name: 'post',
+  name: 'userInput',
   initialState,
   reducers: {
     inputUsername: (state, action: PayloadAction<string>) => {

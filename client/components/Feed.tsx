@@ -26,11 +26,13 @@ const Feed: React.FC = () => {
       reads: el.reads,
       root_id: el.root_id,
       parent_id: el.parent_id,
-      author_id: el.author_id
+      author_id: el.author_id,
+      username: el.username
     }
 
     feedItems.push(<FeedItem {...feedItemProps} />)
   }
+
 
   return <div>
     {feedItems}

@@ -9,6 +9,7 @@ export type Post = {
   root_id: number,
   parent_id: (number | null),
   author_id: number,
+  username: string
 }
 
 export interface Props {
