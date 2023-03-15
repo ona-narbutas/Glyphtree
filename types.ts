@@ -44,3 +44,5 @@ export interface UserInputType {
   password: string,
   username?: string
 }
+
+export type jsx = JSX.IntrinsicElements[keyof JSX.IntrinsicElements];

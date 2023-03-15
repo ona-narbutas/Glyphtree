@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet } from 'react-router-dom';
+import Feed from '../components/Feed'
 
 import Nav from '../components/Nav';
 
@@ -8,7 +9,8 @@ const Root: React.FC = () => {
     <>
       <Nav />
       <div id='content'>
-        <Outlet />
+        {/* <Outlet /> */}
+        <Feed />
       </div>
     </>
   )
