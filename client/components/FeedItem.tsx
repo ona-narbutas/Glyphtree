@@ -2,6 +2,7 @@ import React from "react";
 import type { Post } from '../../types'
 
 const FeedItem: React.FC<Post> = (props: Post) => {
+  const contentPreview = (props.content.length <= 1000) ? props.content : props.content.slice(0, 1000) + ' . . . '
   return <div className='feed_item'>
     <div className='post_content'>
       {props.content}

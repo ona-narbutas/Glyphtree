@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import type { RootState } from '../store';
 import type {Post} from '../../types'
 import FeedItem from './FeedItem';
-import { fetchHomeFeed } from '../thunks';
+import { fetchHomeFeed } from '../slices/postSlice';
 
 const Feed: React.FC = () => {
   // fetch feed root posts from back end and save in post store's feed property

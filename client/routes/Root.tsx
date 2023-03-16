@@ -1,8 +1,9 @@
 import React from "react";
 import { Outlet } from 'react-router-dom';
-import Feed from '../components/Feed'
 
 import Nav from '../components/Nav';
+import Feed from '../components/Feed'
+import WritePrompt from "../components/WritePrompt";
 
 const Root: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const Root: React.FC = () => {
       <Nav />
       <div id='content'>
         {/* <Outlet /> */}
+        <WritePrompt />
         <Feed />
       </div>
     </>
