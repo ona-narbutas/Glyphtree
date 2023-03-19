@@ -19,6 +19,6 @@
     "./client/**/*.tsx",
     "./server/*.ts",
     "./server/**/*.ts",
-    "./server/**/**/*.ts",
+    "./server/**/**/*.ts", "client/index.jsx", "client/routes/EditPage.jsx", "client/components/App.jsx", "client/routes/EditPage.jsx",
   ]
 }

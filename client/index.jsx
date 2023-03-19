@@ -6,6 +6,6 @@ import './styles.css'
 import App from './components/App';
 import { store } from './store';
 
-const container = document.getElementById('root')!;
+const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(<Provider store={store}><App /></Provider>);

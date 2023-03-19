@@ -3,7 +3,6 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import type { Post } from '../../types';
-// import { fetchHomeFeed } from '../thunks';
 
 export interface PostState {
   textEntry: string,

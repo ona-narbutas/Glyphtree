@@ -7,9 +7,9 @@ import { inputText } from '../slices/postSlice';
 import Root from '../routes/Root';
 import NotFound from '../routes/NotFound';
 import Post from '../routes/Post';
-import Editor from '../routes/Editor';
+import EditPage from '../routes/EditPage';
 
-const App: React.FC = () => {
+const App = () => {
 
   return (
     <BrowserRouter>
@@ -18,7 +18,7 @@ const App: React.FC = () => {
           <Route path='posts/:post_id' element={<Post />} />
           <Route path='*' element={<NotFound />} />
         </Route>
-        <Route path='/newpost' element={<Editor />} />
+        <Route path='/newpost' element={<EditPage />} />
       </Routes>
     </BrowserRouter>
   )
