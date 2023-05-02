@@ -32,6 +32,7 @@ body {
   box-shadow: 2px 2px 4px cornflowerblue;
   border-radius: 4px;
   padding: .5rem;
+  margin: .5rem;
 }
 
 .post_metadata {

@@ -3,7 +3,7 @@ import { Slate, Editable, withReact } from 'slate-react';
 import { createEditor, Editor, Transforms, Text } from 'slate';
 
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { inputText, submitPost } from '../slices/postSlice';
+import { inputText } from '../slices/postSlice';
 
 import Nav from '../components/Nav';
 import CodeElement from '../components/slate_blocks/CodeElement';
@@ -102,6 +102,7 @@ const EditPage = () => {
           }
         ) 
       });
+      localStorage.removeItem('content');
     } catch (err) {
       console.error('ERROR: ', err)
     }
