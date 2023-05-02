@@ -1,8 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+// import type { PayloadAction } from '@reduxjs/toolkit';
+// import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import type { Post } from '../../types';
+import { setUser } from './userSlice';
+import { useAppDispatch } from '../hooks';
 
 export interface PostState {
   textEntry: string,
@@ -10,15 +12,18 @@ export interface PostState {
   is_root: (boolean | null),
   feed: Array<Post>,
   loading: 'idle' | 'pending' | 'succeeded' | 'failed',
+  savedPost: (Post | null),
 };
 
 export const fetchHomeFeed = createAsyncThunk(
   'post/fetchHomeFeedStatus',
   async (arg, thunkAPI) => {
     try {
-      const data = await fetch('/posts');
-      const feed = await data.json();
-      return feed;
+      const queryRes = await fetch('/api/posts');
+      const queryResParsed  = await queryRes.json();
+      console.log('feed: ', queryResParsed)
+
+      return queryResParsed.feed;
     } catch(err) {
       return thunkAPI.rejectWithValue(err);
     }
@@ -30,26 +35,32 @@ const initialState: PostState = {
   parent_id: null,
   is_root: null,
   feed: [],
-  loading: 'idle'
+  loading: 'idle',
+  savedPost: null,
 }
 
 export const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
-    inputText: (state, action: PayloadAction<string>) => {
+    inputText: (state: PostState, action: PayloadAction<string>) => {
       state.textEntry = action.payload;
     },
-    // add reducer to populate feed array with data
+    buildFeed: (state: PostState, action: PayloadAction<Array<Post>>) => {
+      state.feed = [...action.payload];
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchHomeFeed.fulfilled, (state, action: PayloadAction<Array<Post>>) => {
       state.feed = [...action.payload];
-    })
+    });
+    // builder.addCase(submitPost.fulfilled, (state: PostState, action: PayloadAction<Post>) => {
+    //   state.savedPost = action.payload;
+    // })
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { inputText } = postSlice.actions;
+export const { inputText, buildFeed } = postSlice.actions;
 
 export default postSlice.reducer;

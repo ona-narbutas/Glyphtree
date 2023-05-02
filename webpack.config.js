@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+
 module.exports = {
   entry: './client/index.jsx',
   mode: process.env.NODE_ENV,
@@ -31,14 +32,13 @@ module.exports = {
   resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx']},
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    publicPath: '/dist',
     filename: 'bundle.js',
   },
   devServer: {
     port: 8080,
     hot: true,
     proxy: {
-      '/': {
+      '/api': {
         target: 'http://localhost:3000'
       }
     }

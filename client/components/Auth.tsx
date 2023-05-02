@@ -10,8 +10,10 @@ import TextField from '@mui/material/TextField';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { AuthProps, AuthOperation, UserInputType } from "../../types";
 import { inputUsername, inputEmail, inputPassword } from '../slices/userInputSlice';
+import { setUser } from '../slices/userSlice';
 
 import type { RootState } from "../store";
+import { parse } from "path";
 
 const Auth: React.FC<AuthProps> = (props: AuthProps) => {
   const userInput = useAppSelector((state: RootState) => state.userInput);
@@ -29,14 +31,17 @@ const Auth: React.FC<AuthProps> = (props: AuthProps) => {
 
     if (signUp) body.username = userInput.username;
 
-    const response = await fetch('/users', {
+    const response = await fetch('/api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body),
     })
-    console.log('response: ', await response.json());
+    const parsedResponse = await response.json();
+    console.log('parsed response: ', parsedResponse);
+    const signedIn = !!parsedResponse.username;
+    dispatch(setUser({user_id: parsedResponse.user_id, username: parsedResponse.username, signedIn}));
     props.toggleAuth(false);
   }
 

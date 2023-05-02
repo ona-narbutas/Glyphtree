@@ -1,7 +1,6 @@
 import React from "react";
 
 const Leaf = props => {
-  console.log('leaf props: ', props)
   let children = props.children;
 
   if (props.leaf.bold) {

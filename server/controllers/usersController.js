@@ -1,26 +1,33 @@
-import express, {Request, Response} from 'express';
-import { AuthOperation, MiddlewareError } from '../../types';
-import { db } from '../server';
-import dotenv from "dotenv";
+// import express, {Request, Response} from 'express';
+// import { AuthOperation, MiddlewareError } from '../../types';
+// import { db } from '../server';
+// import dotenv from "dotenv";
+
+const express = require('express');
+const db = require('../models');
+const dotenv = require('dotenv');
+
 dotenv.config();
 
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-const saltRounds: number = 10;
+// import jwt from 'jsonwebtoken';
+// import bcrypt from 'bcrypt';
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const usersController = {
-  authenticate: async (req: Request, res: Response, next: Function) => {
+  authenticate: async (req, res, next) => {
     try {
       // determine whether the request is asking to sign up or just log in
-      const operation: AuthOperation = req.body.operation;
+      const operation = req.body.operation;
   
       // if the operation is asking to sign up, create a new user account and log user in
       if (operation === 'signUp') {
-        const username: string = req.body.username;
-        const email: string = req.body.email;
-        const password: string = req.body.password;
+        const username = req.body.username;
+        const email = req.body.email;
+        const password = req.body.password;
   
-        const hash: string = await bcrypt.hash(password, saltRounds);
+        const hash = await bcrypt.hash(password, saltRounds);
         const queryText = `INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING user_id, username, email`;
         const values = [username, email, hash];
         const response = await db.query(queryText, values);
@@ -39,8 +46,8 @@ const usersController = {
 
       // if operation is asking to log in, validate and log in
       } else {
-        const email: string = req.body.email;
-        const password: string = req.body.password;
+        const email = req.body.email;
+        const password = req.body.password;
 
         const queryText = `SELECT user_id, username, email, password FROM users WHERE email = $1;`
         const values = [email];
@@ -48,7 +55,7 @@ const usersController = {
         res.locals.foundUser = user.rows[0];
         console.log("found user: ", res.locals.foundUser);
 
-        const verificationResult: boolean = await bcrypt.compare(password, res.locals.foundUser.password);
+        const verificationResult = await bcrypt.compare(password, res.locals.foundUser.password);
         console.log('result: ', verificationResult);
         res.cookie('Auth', jwt.sign(
           {
@@ -73,16 +80,17 @@ const usersController = {
     }
     
   },
-  verifySession: async (req: Request, res: Response, next: Function) => {
+  verifySession: async (req, res, next) => {
     if (req.cookies.Auth) {
       try {
         const auth = jwt.verify(req.cookies.Auth, process.env.TOKEN_KEY || 'no_key');
-        res.locals.signedIn = auth;
+        res.locals.user = auth;
+        res.locals.user.signedIn = true;
         res.set({
           'signedIn': true
         })
       } catch (err) {
-        res.locals.signedIn = false;
+        res.locals.user = {signedIn: false};
         res.set({
           'signedIn' : false,
         })
@@ -98,4 +106,4 @@ const usersController = {
   }
 }
 
-export default usersController;
+module.exports = usersController;

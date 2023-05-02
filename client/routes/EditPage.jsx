@@ -2,6 +2,9 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { Slate, Editable, withReact } from 'slate-react';
 import { createEditor, Editor, Transforms, Text } from 'slate';
 
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { inputText, submitPost } from '../slices/postSlice';
+
 import Nav from '../components/Nav';
 import CodeElement from '../components/slate_blocks/CodeElement';
 import DefaultElement from '../components/slate_blocks/DefaultElement';
@@ -17,9 +20,9 @@ const CustomEditor = {
     return !!match;
   },
 
-  isCodeBlockActive(editor) {
+  isBlockActive(editor, blockType) {
     const [match] = Editor.nodes(editor, {
-      match: n => n.type === 'code',
+      match: n => n.type === blockType
     });
 
     return !!match;
@@ -37,17 +40,22 @@ const CustomEditor = {
     )
   },
 
-  toggleCodeBlock(editor) {
-    const isActive = CustomEditor.isCodeBlockActive(editor);
+  toggleBlock(editor, blockType) {
+    const isActive = CustomEditor.isBlockActive(editor, blockType);
     Transforms.setNodes(
       editor,
-      { type: isActive ? null : 'code' },
+      { type: isActive ? null : blockType },
       { match: n => Editor.isBlock(editor, n) }
     )
-  }
+  },
 }
     
 const EditPage = () => {
+  // Redux
+  const dispatch = useAppDispatch();
+  const postState = useAppSelector(state => state.post);
+  const userState = useAppSelector(state => state.user);
+
   const [editor] = useState(() => withReact(createEditor()));
   
   // Initial value loads from local storage if there is anything, otherwise uses default
@@ -56,7 +64,7 @@ const EditPage = () => {
       JSON.parse(localStorage.getItem('content')) || [
         {
           type: 'paragraph',
-          children: [{ text: 'A line of text in a paragraph.' }]
+          children: [{ text: 'Tell us a story!' }]
         }
       ],
     []
@@ -67,6 +75,8 @@ const EditPage = () => {
     switch (props.element.children[0].type) {
       case 'code':
         return <CodeElement {...props} />
+      case 'blockquote':
+        return <blockquote {...props.attributes}>{props.children}</blockquote>;
       default:
         return <DefaultElement {...props} />
     }
@@ -76,6 +86,27 @@ const EditPage = () => {
     return <Leaf {...props} />
   }, []);
   
+  const submitPost = async () => {
+    try {
+      const submitRes = await fetch('api/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+          {
+            content: postState.textEntry,
+            parent_id: postState.parent_id,
+            is_root: postState.is_root,
+            author_id: userState.user_id
+          }
+        ) 
+      });
+    } catch (err) {
+      console.error('ERROR: ', err)
+    }
+  }
+
   return (
     <>
       <Nav />
@@ -91,9 +122,11 @@ const EditPage = () => {
             if (isAstChange) {
             const content = JSON.stringify(value);
             localStorage.setItem('content', content);
+            // call reducer to update store with text content
+            dispatch(inputText(content));
           }
         }}
-        >
+      >
         <Editable 
           renderElement = {renderElement}
           renderLeaf = {renderLeaf}
@@ -107,7 +140,13 @@ const EditPage = () => {
             switch (event.key) {
               case '`': {
                 event.preventDefault();
-                CustomEditor.toggleCodeBlock(editor);
+                CustomEditor.toggleBlock(editor, 'code');
+                break;
+              }
+
+              case '\'': {
+                event.preventDefault();
+                CustomEditor.toggleBlock(editor, 'blockquote');
                 break;
               }
               
@@ -126,11 +165,13 @@ const EditPage = () => {
               case 'u': {
                 event.preventDefault();
                 CustomEditor.toggleMark(editor, 'underline');
+                break;
               }
             }
           }}
         />
       </Slate>
+      <button onClick={submitPost}>Submit</button>
     </>
   )
 }

@@ -3,7 +3,8 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import type { RootState } from '../store';
 import type {Post} from '../../types'
 import FeedItem from './FeedItem';
-import { fetchHomeFeed } from '../slices/postSlice';
+import { buildFeed } from '../slices/postSlice';
+import { setUser } from '../slices/userSlice';
 
 const Feed: React.FC = () => {
   // fetch feed root posts from back end and save in post store's feed property
@@ -12,7 +13,20 @@ const Feed: React.FC = () => {
   const dispatch = useAppDispatch();
   
   useEffect(() => {
-    dispatch(fetchHomeFeed());
+    const fetchHomeFeed = async () => {
+      try {
+        const queryRes = await fetch('/api/posts');
+        const queryResParsed  = await queryRes.json();
+        console.log('feed: ', queryResParsed)
+        if (queryResParsed.user.signedIn) dispatch(setUser(queryResParsed.user));
+        dispatch(buildFeed(queryResParsed.feed));
+        return queryResParsed.feed;
+      } catch(err) {
+        console.error('ERROR: ', err);
+      }
+    }
+    fetchHomeFeed();
+    // dispatch(fetchHomeFeed());
   }, []);
 
   const feedItems: Array<React.ReactElement> = [];

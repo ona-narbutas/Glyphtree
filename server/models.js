@@ -61,3 +61,21 @@ CREATE TABLE post_tags(
 ) 
 
 */
+
+const { Pool, PoolClient } = require('pg');
+const dotenv = require('dotenv');
+dotenv.config();
+
+const PG_URI = process.env.PG_URI;
+const pool = new Pool({
+  connectionString: PG_URI
+});
+
+const db = {
+  query: async (queryText, values) => {
+    console.log('executed query', queryText);
+    return await pool.query(queryText, values)
+  }
+}
+
+module.exports = db;
