@@ -10,7 +10,7 @@
     "target": "ES6",
     "allowSyntheticDefaultImports": true,
     "types": ["react/next", "react-dom/next", "node", "express"],
-    "outDir": "./dist",
+    "outDir": "./dist"
   },
   "include": [
     "./client/*.ts",
@@ -19,6 +19,6 @@
     "./client/**/*.tsx",
     "./server/*.ts",
     "./server/**/*.ts",
-    "./server/**/**/*.ts", "client/index.jsx", "client/routes/EditPage.jsx", "client/components/App.jsx", "client/routes/EditPage.jsx",
+    "./server/**/**/*.ts"
   ]
 }
