@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 // import type { RootState } from '../store';
 // import type { Post } from '../../types';
 import FeedItem from './FeedItem';
-import { buildFeed } from '../slices/postSlice';
+import { buildFeed, selectPost } from '../slices/postSlice';
 import { setUser } from '../slices/userSlice';
 
 const Feed = () => {
@@ -29,6 +29,11 @@ const Feed = () => {
     fetchHomeFeed();
   }, []);
 
+  const handleClick = (target) => {
+    console.log('handleClick fired');
+    dispatch(selectPost(target));
+  };
+
   const feedItems = [];
 
   for (const el of postState.feed) {
@@ -42,6 +47,7 @@ const Feed = () => {
       parent_id: el.parent_id,
       author_id: el.author_id,
       username: el.username,
+      handleClick: handleClick,
     };
 
     feedItems.push(<FeedItem {...feedItemProps} key={el.post_id} />);

@@ -17,7 +17,6 @@ const cookieParser = require('cookie-parser');
 const usersRouter = require('./routes/usersRouter');
 const postsRouter = require('./routes/postsRouter');
 
-
 // dotenv.config();
 // const PG_URI = process.env.PG_URI;
 // const pool = new Pool({
@@ -34,9 +33,8 @@ const postsRouter = require('./routes/postsRouter');
 const app = express();
 const { PORT } = process.env;
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 
 // root:
 app.get('/', (req, res) => {
@@ -51,7 +49,6 @@ app.use('/api/users', usersRouter);
 // posts route
 app.use('/api/posts', postsRouter);
 
-
 // Don't send 404 error for unknown routes, instead let react router handle it
 app.get('*', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
@@ -60,18 +57,17 @@ app.get('*', (req, res) => {
 // Global Error Handler
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: `Express error handler caught unknown middleware error: ${err}`,  
+    log: `Express error handler caught unknown middleware error: ${err}`,
     status: 500,
-    message: {err: "Global error handler invoked"},
-  }
+    message: { err: 'Global error handler invoked' },
+  };
   const error = Object.assign({}, defaultErr, err);
   console.log('ERROR: ', error.log);
   return res.status(error.status).json(error.message);
-})
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
-})
-
+});
 
 // module.exports = db;

@@ -19,6 +19,7 @@
     "./client/**/*.tsx",
     "./server/*.ts",
     "./server/**/*.ts",
-    "./server/**/**/*.ts"
+    "./server/**/**/*.ts",
+    "client/routes/Post.jsx"
   ]
 }
