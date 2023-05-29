@@ -27,7 +27,6 @@ const Feed = () => {
       }
     };
     fetchHomeFeed();
-    // dispatch(fetchHomeFeed());
   }, []);
 
   const feedItems = [];
