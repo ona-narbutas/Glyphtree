@@ -1,49 +1,48 @@
-import React, { Dispatch } from "react"
+import React, { Dispatch } from 'react';
 
 export type Post = {
-  post_id: number,
-  is_root: boolean,
-  created_at: string,
-  content: string,
-  reads: number,
-  root_id: number,
-  parent_id: (number | null),
-  author_id: number,
-  username: string
-}
+  post_id: number;
+  is_root: boolean;
+  created_at: string;
+  content: string;
+  reads: number;
+  root_id: number;
+  parent_id: number | null;
+  author_id: number;
+  username: string;
+  children?: Post[] | null;
+};
 
-export interface Props {
-
-}
+export interface Props {}
 
 export type MiddlewareError = {
-  log: string,
-  status: number,
+  log: string;
+  status: number;
   message: {
-    err: string
-  }
-}
+    err: string;
+  };
+};
 
 export type UsersController = {
-  authenticate: Function
-}
+  authenticate: Function;
+};
 
-export type AuthOperation = ('signUp' | 'logIn');
+export type AuthOperation = 'signUp' | 'logIn';
 
 export type FunctionComponent<Props extends {}> = (
-    props: Props,
-    context?: any,
-  ) => JSX.Element | null;
+  props: Props,
+  context?: any
+) => JSX.Element | null;
 
 export interface AuthProps {
   toggleAuth: Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface UserInputType {
-  operation: string,
-  email: string,
-  password: string,
-  username?: string
+  operation: string;
+  email: string;
+  password: string;
+  username?: string;
 }
 
 export type jsx = JSX.IntrinsicElements[keyof JSX.IntrinsicElements];

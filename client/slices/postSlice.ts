@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-// import type { PayloadAction } from '@reduxjs/toolkit';
-// import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import type { Post } from '../../types';
-import { setUser } from './userSlice';
-import { useAppDispatch } from '../hooks';
 
 export interface PostState {
   textEntry: string;
@@ -54,6 +50,11 @@ export const postSlice = createSlice({
     selectPost: (state: PostState, action: PayloadAction<Post>) => {
       state.selectedPost = { ...action.payload };
     },
+    setChildren: (state: PostState, action: PayloadAction<Array<Post>>) => {
+      if (state.selectedPost) {
+        state.selectedPost.children = [...action.payload];
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -69,6 +70,7 @@ export const postSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { inputText, buildFeed, selectPost } = postSlice.actions;
+export const { inputText, buildFeed, selectPost, setChildren } =
+  postSlice.actions;
 
 export default postSlice.reducer;
