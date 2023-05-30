@@ -14,6 +14,7 @@ const Post = (props) => {
   const [postInState, setPostInState] = useState(!!selectedPost);
   const [hasChildren, setHasChildren] = useState(false);
   const [contentString, setContentString] = useState('');
+  const [editorVisible, setEditorVisible] = useState(false);
 
   // On mount, check for post in state. If none, fetch from backend and run again. If in state, fetch children.
   useEffect(() => {
@@ -62,13 +63,15 @@ const Post = (props) => {
     <>
       <Nav />
 
-      <article className="selected_post">
-        <div className="post_metadata"></div>
-        <div
-          className="selected_post_content"
-          dangerouslySetInnerHTML={{ __html: contentString }}
-        ></div>
-      </article>
+      <div className="read_edit_container">
+        <article className="selected_post">
+          <div className="post_metadata"></div>
+          <div
+            className="selected_post_content"
+            dangerouslySetInnerHTML={{ __html: contentString }}
+          ></div>
+        </article>
+      </div>
 
       <div className="post_children">
         {hasChildren ? childArr : <p>No children</p>}
