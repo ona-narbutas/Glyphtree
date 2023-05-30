@@ -18,7 +18,6 @@ export const fetchHomeFeed = createAsyncThunk(
     try {
       const queryRes = await fetch('/api/posts');
       const queryResParsed = await queryRes.json();
-      console.log('feed: ', queryResParsed);
 
       return queryResParsed.feed;
     } catch (err) {
@@ -63,9 +62,6 @@ export const postSlice = createSlice({
         state.feed = [...action.payload];
       }
     );
-    // builder.addCase(submitPost.fulfilled, (state: PostState, action: PayloadAction<Post>) => {
-    //   state.savedPost = action.payload;
-    // })
   },
 });
 

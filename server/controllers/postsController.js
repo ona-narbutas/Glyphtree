@@ -45,6 +45,24 @@ const postsController = {
     }
   },
 
+  findPost: async (req, res, next) => {
+    console.log('in findPost controller');
+    try {
+      const post_id = req.params.postId;
+
+      const queryText = `SELECT posts.*, users.username FROM posts INNER JOIN users
+      ON posts.post_id = $1`;
+      const values = [post_id];
+
+      const dbRes = await db.query(queryText, values);
+      res.locals.post = dbRes.rows[0];
+      console.log('response: ', res.locals.post);
+      return next();
+    } catch (err) {
+      return next(err);
+    }
+  },
+
   findChildren: async (req, res, next) => {
     try {
       const parent_id = req.params.parentId;

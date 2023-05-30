@@ -26,6 +26,19 @@ router.post('/', postsController.createPost, (req, res) => {
   return res.status(200).json(res.locals.newPost);
 });
 
+// retrieve individual post
+router.get(
+  '/:postId',
+  (req, res, next) => {
+    console.log('post router');
+    return next();
+  },
+  postsController.findPost,
+  (req, res) => {
+    return res.status(200).json(res.locals.post);
+  }
+);
+
 // retrieve post children
 router.get('/children/:parentId', postsController.findChildren, (req, res) => {
   return res.status(200).json(res.locals.children);

@@ -14,9 +14,9 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Root />}>
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Route>
-        <Route path="posts/:post_id" element={<Post />} />
+        <Route path="/posts/:post_id" element={<Post />} />
         <Route path="/newpost" element={<EditPage />} />
       </Routes>
     </BrowserRouter>
