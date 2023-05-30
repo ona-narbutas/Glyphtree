@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import Nav from '../components/Nav';
+import Edit from '../components/Edit';
 
 import serializeSlate from '../serializeSlate.js';
 import { setChildren, selectPost } from '../slices/postSlice';
@@ -71,6 +72,11 @@ const Post = (props) => {
             dangerouslySetInnerHTML={{ __html: contentString }}
           ></div>
         </article>
+        {editorVisible && (
+          <div className="edit_panel">
+            <Edit />
+          </div>
+        )}
       </div>
 
       <div className="post_children">
