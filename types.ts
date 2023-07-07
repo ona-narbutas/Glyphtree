@@ -6,7 +6,7 @@ export type AuthOperation = 'signUp' | 'logIn';
 
 // --------------------FRONTEND TYPES--------------------
 
-export type Post = {
+export interface Post {
   post_id: number;
   is_root: boolean;
   created_at: string;
@@ -17,23 +17,6 @@ export type Post = {
   author_id: number;
   username: string;
   children?: Post[] | null;
-};
-
-export type MiddlewareError = {
-  log: string;
-  status: number;
-  message: {
-    err: string;
-  };
-};
-
-export type FunctionComponent<Props extends {}> = (
-  props: Props,
-  context?: any
-) => JSX.Element | null;
-
-export interface AuthProps {
-  toggleAuth: Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface UserInputType {
