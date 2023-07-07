@@ -6,7 +6,7 @@ CREATE TABLE users (
   username
   email  VARCHAR(320),
   password  VARCHAR(60),
-  organization VARCHAR(60)
+  bio VARCHAR(60)
 )
 
 POSTS:
@@ -62,20 +62,20 @@ CREATE TABLE post_tags(
 
 */
 
-const { Pool, PoolClient } = require('pg');
-const dotenv = require('dotenv');
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const PG_URI = process.env.PG_URI;
 const pool = new Pool({
-  connectionString: PG_URI
+  connectionString: PG_URI,
 });
 
 const db = {
-  query: async (queryText, values) => {
+  query: async (queryText: string, values: string[]) => {
     console.log('executed query', queryText);
-    return await pool.query(queryText, values)
-  }
-}
+    return await pool.query(queryText, values);
+  },
+};
 
-module.exports = db;
+export default db;

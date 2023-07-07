@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/server.js",
     "build": "NODE_ENV=production webpack",
-    "dev": "NODE_ENV=development webpack serve --open & nodemon server/server.js",
+    "dev": "NODE_ENV=development webpack serve --open & nodemon server/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ona Narbutas (ona.narbutas@gmail.com)",
@@ -21,7 +21,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "@types/bcrypt": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.1",
-    "@types/pg": "^8.6.6",
+    "@types/pg": "^8.10.2",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
