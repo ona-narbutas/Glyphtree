@@ -1,19 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface UserState {
-  user_id: Number | null,
-  username: String | null,
-  signedIn: Boolean
+interface UserState {
+  user_id: Number | null;
+  username: String | null;
+  signedIn: Boolean;
 }
 
 const initialState: UserState = {
   user_id: null,
   username: null,
-  signedIn: false
-}
-
-
+  signedIn: false,
+};
 
 export const userSlice = createSlice({
   name: 'user',
@@ -23,8 +20,8 @@ export const userSlice = createSlice({
       state.user_id = action.payload.user_id;
       state.username = action.payload.username;
       state.signedIn = action.payload.signedIn;
-    }
-  }
+    },
+  },
 });
 
 export const { setUser } = userSlice.actions;

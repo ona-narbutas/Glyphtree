@@ -1,16 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 
-import type { Post } from '../../types';
-
-export interface PostState {
-  textEntry: string;
-  parent_id: number | null;
-  is_root: boolean | null;
-  feed: Array<Post>;
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
-  savedPost: Post | null;
-  selectedPost: Post | null;
-}
+import { Post } from '../../types';
 
 export const fetchHomeFeed = createAsyncThunk(
   'post/fetchHomeFeedStatus',
@@ -25,6 +15,15 @@ export const fetchHomeFeed = createAsyncThunk(
     }
   }
 );
+interface PostState {
+  textEntry: string;
+  parent_id: number | null;
+  is_root: boolean | null;
+  feed: Array<Post>;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  savedPost: Post | null;
+  selectedPost: Post | null;
+}
 
 const initialState: PostState = {
   textEntry: '',
