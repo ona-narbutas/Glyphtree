@@ -1,5 +1,11 @@
 import React, { Dispatch } from 'react';
 
+// --------------------GLOBAL TYPES--------------------
+
+export type AuthOperation = 'signUp' | 'logIn';
+
+// --------------------FRONTEND TYPES--------------------
+
 export type Post = {
   post_id: number;
   is_root: boolean;
@@ -13,8 +19,6 @@ export type Post = {
   children?: Post[] | null;
 };
 
-export interface Props {}
-
 export type MiddlewareError = {
   log: string;
   status: number;
@@ -22,12 +26,6 @@ export type MiddlewareError = {
     err: string;
   };
 };
-
-export type UsersController = {
-  authenticate: Function;
-};
-
-export type AuthOperation = 'signUp' | 'logIn';
 
 export type FunctionComponent<Props extends {}> = (
   props: Props,
@@ -45,4 +43,19 @@ export interface UserInputType {
   username?: string;
 }
 
-export type jsx = JSX.IntrinsicElements[keyof JSX.IntrinsicElements];
+// --------------------BACKEND TYPES--------------------
+export interface ServerError {
+  message: {
+    err: string;
+  };
+  status: number;
+  log: string;
+}
+
+export interface User {
+  user_id: number;
+  username: string;
+  email: string;
+  password: string;
+  bio?: string;
+}

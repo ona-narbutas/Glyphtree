@@ -1,11 +1,24 @@
-// import express, { Request, Response } from 'express';
-// import { db } from '../server';
+import express, {
+  Request,
+  Response,
+  NextFunction,
+  RequestHandler,
+} from 'express';
+import db from '../models';
 
-const express = require('express');
-const db = require('../models');
+interface PostsController {
+  buildFeed: RequestHandler;
+  createPost: RequestHandler;
+  findPost: RequestHandler;
+  findChildren: RequestHandler;
+}
 
-const postsController = {
-  buildFeed: async (req, res, next) => {
+const postsController: PostsController = {
+  buildFeed: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
     // TO-DO: if user not logged in, build feed of most recent root posts
     if (!res.locals.signedIn) {
       const queryText = `SELECT posts.*, users.username FROM posts INNER JOIN users
@@ -21,7 +34,11 @@ const postsController = {
     return next();
   },
 
-  createPost: async (req, res, next) => {
+  createPost: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
     try {
       const queryText = `INSERT INTO posts (content, author_id, parent_id, is_root, root_id)
                         VALUES ($1, $2, $3, $4, $5)`;
@@ -45,7 +62,11 @@ const postsController = {
     }
   },
 
-  findPost: async (req, res, next) => {
+  findPost: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
     console.log('in findPost controller');
     try {
       const post_id = req.params.postId;
@@ -63,7 +84,11 @@ const postsController = {
     }
   },
 
-  findChildren: async (req, res, next) => {
+  findChildren: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
     try {
       const parent_id = req.params.parentId;
 
@@ -83,4 +108,4 @@ const postsController = {
   },
 };
 
-module.exports = postsController;
+export default postsController;
