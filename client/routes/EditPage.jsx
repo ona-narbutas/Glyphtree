@@ -7,7 +7,9 @@ const EditPage = () => {
   return (
     <>
       <Nav />
-      <Edit />
+      <main>
+        <Edit />
+      </main>
     </>
   );
 };

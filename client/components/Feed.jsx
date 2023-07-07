@@ -11,15 +11,16 @@ const Feed = () => {
   // render each root as a Post component
   const postState = useAppSelector((state) => state.post);
   const dispatch = useAppDispatch();
-
+  console.log('postState: ', postState);
   useEffect(() => {
     const fetchHomeFeed = async () => {
       try {
         const queryRes = await fetch('/api/posts');
         const queryResParsed = await queryRes.json();
         console.log('feed: ', queryResParsed);
-        if (queryResParsed.user?.signedIn)
+        if (queryResParsed.user?.signedIn) {
           dispatch(setUser(queryResParsed.user));
+        }
         dispatch(buildFeed(queryResParsed.feed));
         return queryResParsed.feed;
       } catch (err) {

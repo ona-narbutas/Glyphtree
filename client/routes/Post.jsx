@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
+import CreateIcon from '@mui/icons-material/Create';
+
 import Nav from '../components/Nav';
 import Edit from '../components/Edit';
 
@@ -63,25 +65,31 @@ const Post = (props) => {
   return (
     <>
       <Nav />
-
-      <div className="read_edit_container">
-        <article className="selected_post">
-          <div className="post_metadata"></div>
-          <div
-            className="selected_post_content"
-            dangerouslySetInnerHTML={{ __html: contentString }}
-          ></div>
-        </article>
-        {editorVisible && (
-          <div className="edit_panel">
-            <Edit />
-          </div>
-        )}
-      </div>
-
-      <div className="post_children">
-        {hasChildren ? childArr : <p>No children</p>}
-      </div>
+      <main>
+        <div className="read_edit_container">
+          <article className="selected_post">
+            <div className="post_metadata"></div>
+            <div
+              className="selected_post_content"
+              dangerouslySetInnerHTML={{ __html: contentString }}
+            ></div>
+          </article>
+          {editorVisible && (
+            <div className="edit_panel">
+              <Edit />
+            </div>
+          )}
+          <button
+            id="continue_button"
+            onClick={() => setEditorVisible(!editorVisible)}
+          >
+            <CreateIcon fontSize="large" color="primary" />
+          </button>
+        </div>
+        <div className="post_children">
+          {hasChildren ? childArr : <p>No children</p>}
+        </div>
+      </main>
     </>
   );
 };
