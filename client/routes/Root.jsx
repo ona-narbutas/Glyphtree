@@ -9,11 +9,11 @@ const Root = () => {
   return (
     <>
       <Nav />
-      <div id="content">
+      <main id="content">
         {/* <Outlet /> */}
         <WritePrompt />
         <Feed />
-      </div>
+      </main>
     </>
   );
 };

@@ -1,18 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// import type { PayloadAction } from '@reduxjs/toolkit';
-
 
 export interface UserInputState {
-  username: string,
-  email: string,
-  password: string,
-};
+  username: string;
+  email: string;
+  password: string;
+}
 
 const initialState: UserInputState = {
   username: '',
   email: '',
   password: '',
-}
+};
 
 export const userInputSlice = createSlice({
   name: 'userInput',
@@ -26,10 +24,11 @@ export const userInputSlice = createSlice({
     },
     inputPassword: (state, action: PayloadAction<string>) => {
       state.password = action.payload;
-    }
-  }
+    },
+  },
 });
 
-export const { inputUsername, inputEmail, inputPassword } = userInputSlice.actions;
+export const { inputUsername, inputEmail, inputPassword } =
+  userInputSlice.actions;
 
 export default userInputSlice.reducer;
