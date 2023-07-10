@@ -89,16 +89,22 @@ const Edit = () => {
 
   const submitPost = async () => {
     try {
-      const submitRes = await fetch('api/posts', {
+      const submitRes = await fetch('/api/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           content: postState.textEntry,
-          parent_id: postState.parent_id,
-          is_root: postState.is_root,
           author_id: userState.user_id,
+          parent_id: postState.selectedPost
+            ? postState.selectedPost.post_id
+            : postState.parent_id,
+          is_root: postState.selectedPost ? false : true,
+          root_id:
+            postState.root_id ||
+            postState.selectedPost?.parent_id ||
+            postState.selectedPost?.post_id,
         }),
       });
       localStorage.removeItem('content');
@@ -106,6 +112,10 @@ const Edit = () => {
       console.error('ERROR: ', err);
     }
   };
+
+  if (!userState.signedIn) {
+    return <div>Sign in to start writing!</div>;
+  }
 
   return (
     <>

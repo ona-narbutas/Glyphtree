@@ -22,7 +22,8 @@ const postsController: PostsController = {
     // TO-DO: if user not logged in, build feed of most recent root posts
     if (!res.locals.signedIn) {
       const queryText = `SELECT posts.*, users.username FROM posts INNER JOIN users
-                        ON posts.author_id = users.user_id`;
+                        ON posts.author_id = users.user_id
+                        WHERE posts.is_root = true`;
       const feedData = await db.query(queryText, []);
       res.locals.feed = feedData.rows;
       // TO-DO: if user is logged in, build feet of posts by followed authors + most recent roots
@@ -40,13 +41,14 @@ const postsController: PostsController = {
     next: NextFunction
   ): Promise<Response | void> => {
     try {
+      console.log('creating post: ', req.body);
       const queryText = `INSERT INTO posts (content, author_id, parent_id, is_root, root_id)
                         VALUES ($1, $2, $3, $4, $5)`;
       const values = [
         req.body.content,
         req.body.author_id,
         req.body.parent_id,
-        !req.body.parent_id, // if parent_id is truthy, not root so should be false, and vice versa
+        req.body.is_root,
         req.body.root_id || null,
       ];
       const newPost = await db.query(queryText, values);

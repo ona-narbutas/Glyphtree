@@ -4,6 +4,7 @@ import CreateIcon from '@mui/icons-material/Create';
 
 import Nav from '../components/Nav';
 import Edit from '../components/Edit';
+import FeedItem from '../components/FeedItem';
 
 import serializeSlate from '../serializeSlate.js';
 import { setChildren, selectPost } from '../slices/postSlice';
@@ -11,6 +12,7 @@ import { setChildren, selectPost } from '../slices/postSlice';
 const Post = (props) => {
   // Redux
   const selectedPost = useAppSelector((state) => state.post.selectedPost);
+
   const dispatch = useAppDispatch();
 
   // Local State
@@ -34,8 +36,12 @@ const Post = (props) => {
 
     const fetchChildren = async () => {
       const endpoint = `/api/posts/children/${selectedPost.post_id}`;
+      console.log('endpoint: ', endpoint);
+      console.log('selectedPost: ', selectedPost);
+
       const response = await fetch(endpoint);
       const children = await response.json();
+      console.log('children: ', children);
 
       if (Array.isArray(children)) {
         dispatch(setChildren(children));
@@ -58,9 +64,32 @@ const Post = (props) => {
     }
 
     getData();
-  }, [postInState]);
+  }, [postInState, selectedPost]);
+
+  const handleChildClick = (target) => {
+    setHasChildren(false);
+    dispatch(selectPost(target));
+  };
 
   const childArr = [];
+  if (hasChildren) {
+    selectedPost.children.forEach((el) => {
+      const childProps = {
+        post_id: el.post_id,
+        is_root: el.is_root,
+        created_at: el.created_at,
+        content: el.content,
+        reads: el.reads,
+        root_id: el.root_id,
+        parent_id: el.parent_id,
+        author_id: el.author_id,
+        username: el.username,
+        handleClick: handleChildClick,
+      };
+
+      childArr.push(<FeedItem {...childProps} key={el.post_id} />);
+    });
+  }
 
   return (
     <>
