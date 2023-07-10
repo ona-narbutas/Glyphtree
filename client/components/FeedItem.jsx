@@ -10,7 +10,7 @@ const FeedItem = (props) => {
   const contentString = serializedArr.join('');
   return (
     <Link
-      to={`posts/${props.post_id}`}
+      to={`/posts/${props.post_id}`}
       style={{ textDecoration: 'none', color: 'black' }}
     >
       <article
