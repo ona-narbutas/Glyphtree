@@ -44,10 +44,10 @@ const usersController: UsersController = {
               email: res.locals.newUser.email,
               username: res.locals.newUser.username,
             },
-            process.env.TOKEN_KEY || 'no_key',
-            {
-              expiresIn: '2h',
-            }
+            process.env.TOKEN_KEY || 'no_key'
+            // {
+            //   expiresIn: '2h',
+            // }
           )
         );
 
@@ -66,7 +66,7 @@ const usersController: UsersController = {
           password,
           res.locals.foundUser.password
         );
-        console.log('result: ', verificationResult);
+
         res.cookie(
           'Auth',
           jwt.sign(

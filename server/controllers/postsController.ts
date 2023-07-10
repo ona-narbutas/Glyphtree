@@ -40,13 +40,14 @@ const postsController: PostsController = {
     next: NextFunction
   ): Promise<Response | void> => {
     try {
+      console.log('creating post: ', req.body);
       const queryText = `INSERT INTO posts (content, author_id, parent_id, is_root, root_id)
                         VALUES ($1, $2, $3, $4, $5)`;
       const values = [
         req.body.content,
         req.body.author_id,
         req.body.parent_id,
-        !req.body.parent_id, // if parent_id is truthy, not root so should be false, and vice versa
+        req.body.is_root,
         req.body.root_id || null,
       ];
       const newPost = await db.query(queryText, values);
