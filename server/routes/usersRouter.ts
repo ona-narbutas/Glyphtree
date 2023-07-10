@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import usersController from '../controllers/usersController';
 
 const usersRouter: Router = Router();
+
 usersRouter.post(
   '/',
   usersController.authenticate,
@@ -11,4 +12,5 @@ usersRouter.post(
       .send(JSON.stringify(res.locals.newUser || res.locals.foundUser));
   }
 );
+
 export default usersRouter;

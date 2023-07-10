@@ -8,7 +8,6 @@ const saltRounds = 10;
 
 import { AuthOperation, User } from '../../types';
 import db from '../models';
-import { QueryArrayResult } from 'pg';
 
 interface UsersController {
   authenticate: RequestHandler;
@@ -112,10 +111,7 @@ const usersController: UsersController = {
         });
       }
     } else {
-      res.locals.signedIn = false;
-      res.set({
-        signedIn: false,
-      });
+      res.locals.user.signedIn = false;
     }
 
     return next();

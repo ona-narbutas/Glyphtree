@@ -20,7 +20,7 @@ const postsController: PostsController = {
     next: NextFunction
   ): Promise<Response | void> => {
     // TO-DO: if user not logged in, build feed of most recent root posts
-    if (!res.locals.signedIn) {
+    if (!res.locals.user?.signedIn) {
       const queryText = `SELECT posts.*, users.username FROM posts INNER JOIN users
                         ON posts.author_id = users.user_id
                         WHERE posts.is_root = true`;
@@ -40,26 +40,36 @@ const postsController: PostsController = {
     res: Response,
     next: NextFunction
   ): Promise<Response | void> => {
-    try {
-      console.log('creating post: ', req.body);
-      const queryText = `INSERT INTO posts (content, author_id, parent_id, is_root, root_id)
-                        VALUES ($1, $2, $3, $4, $5)`;
-      const values = [
-        req.body.content,
-        req.body.author_id,
-        req.body.parent_id,
-        req.body.is_root,
-        req.body.root_id || null,
-      ];
-      const newPost = await db.query(queryText, values);
-      res.locals.newPost = newPost.rows[0];
-      console.log('saved post: ', res.locals.newPost);
-      return next();
-    } catch (err) {
+    if (res.locals.user?.signedIn) {
+      try {
+        console.log('creating post: ', req.body);
+        const queryText = `INSERT INTO posts (content, author_id, parent_id, is_root, root_id)
+                          VALUES ($1, $2, $3, $4, $5)`;
+        const values = [
+          req.body.content,
+          req.body.author_id,
+          req.body.parent_id,
+          req.body.is_root,
+          req.body.root_id || null,
+        ];
+        const newPost = await db.query(queryText, values);
+        res.locals.newPost = newPost.rows[0];
+        console.log('saved post: ', res.locals.newPost);
+        return next();
+      } catch (err) {
+        return next({
+          log: 'ERROR in postsController.createPost: ' + err,
+          status: 500,
+          message: { err: 'Could not create post' },
+        });
+      }
+    } else {
       return next({
-        log: 'ERROR in postsController.createPost: ' + err,
-        status: 500,
-        message: { err: 'Could not create post' },
+        log: 'ERROR in postsController.createPost: no signin credentials',
+        status: 401,
+        message: {
+          err: 'Could not save post - invalid or missing credentials.',
+        },
       });
     }
   },

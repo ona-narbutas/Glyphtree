@@ -18,9 +18,14 @@ postsRouter.get(
   }
 );
 
-postsRouter.post('/', postsController.createPost, (req, res): Response => {
-  return res.status(200).json(res.locals.newPost);
-});
+postsRouter.post(
+  '/',
+  usersController.verifySession,
+  postsController.createPost,
+  (req, res): Response => {
+    return res.status(200).json(res.locals.newPost);
+  }
+);
 
 // retrieve individual post
 postsRouter.get(
