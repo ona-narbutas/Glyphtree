@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 // import type { RootState } from '../store';
 // import type { Post } from '../../types';
 import FeedItem from './FeedItem';
-import { buildFeed, selectPost } from '../slices/postSlice';
+import { buildFeed, deselectPost, selectPost } from '../slices/postSlice';
 import { setUser } from '../slices/userSlice';
 
 const Feed = () => {
@@ -11,27 +11,29 @@ const Feed = () => {
   // render each root as a Post component
   const postState = useAppSelector((state) => state.post);
   const dispatch = useAppDispatch();
-  console.log('postState: ', postState);
+
   useEffect(() => {
     const fetchHomeFeed = async () => {
       try {
         const queryRes = await fetch('/api/posts');
         const queryResParsed = await queryRes.json();
-        console.log('feed: ', queryResParsed);
+
         if (queryResParsed.user?.signedIn) {
           dispatch(setUser(queryResParsed.user));
         }
+
         dispatch(buildFeed(queryResParsed.feed));
         return queryResParsed.feed;
       } catch (err) {
         console.error('ERROR: ', err);
       }
     };
+
     fetchHomeFeed();
+    dispatch(deselectPost());
   }, []);
 
   const handleClick = (target) => {
-    console.log('handleClick fired');
     dispatch(selectPost(target));
   };
 

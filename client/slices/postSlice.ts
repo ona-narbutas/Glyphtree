@@ -48,6 +48,9 @@ export const postSlice = createSlice({
     selectPost: (state: PostState, action: PayloadAction<Post>) => {
       state.selectedPost = { ...action.payload };
     },
+    deselectPost: (state: PostState, action: PayloadAction<Post>) => {
+      state.selectedPost = null;
+    },
     setChildren: (state: PostState, action: PayloadAction<Array<Post>>) => {
       if (state.selectedPost) {
         state.selectedPost.children = [...action.payload];
@@ -65,7 +68,7 @@ export const postSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { inputText, buildFeed, selectPost, setChildren } =
+export const { inputText, buildFeed, selectPost, deselectPost, setChildren } =
   postSlice.actions;
 
 export default postSlice.reducer;

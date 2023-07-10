@@ -107,6 +107,10 @@ const Edit = () => {
     }
   };
 
+  if (!userState.signedIn) {
+    return <div>Sign in to start writing!</div>;
+  }
+
   return (
     <>
       <Slate
