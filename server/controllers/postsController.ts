@@ -22,7 +22,8 @@ const postsController: PostsController = {
     // TO-DO: if user not logged in, build feed of most recent root posts
     if (!res.locals.signedIn) {
       const queryText = `SELECT posts.*, users.username FROM posts INNER JOIN users
-                        ON posts.author_id = users.user_id`;
+                        ON posts.author_id = users.user_id
+                        WHERE posts.is_root = true`;
       const feedData = await db.query(queryText, []);
       res.locals.feed = feedData.rows;
       // TO-DO: if user is logged in, build feet of posts by followed authors + most recent roots
