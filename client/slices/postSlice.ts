@@ -42,7 +42,7 @@ export const postSlice = createSlice({
     inputText: (state: PostState, action: PayloadAction<string>) => {
       state.textEntry = action.payload;
     },
-    buildFeed: (state: PostState, action: PayloadAction<Array<Post>>) => {
+    buildFeed: (state: PostState, action: PayloadAction<Post[]>) => {
       state.feed = [...action.payload];
     },
     selectPost: (state: PostState, action: PayloadAction<Post>) => {
@@ -51,7 +51,7 @@ export const postSlice = createSlice({
     deselectPost: (state: PostState, action: PayloadAction<Post>) => {
       state.selectedPost = null;
     },
-    setChildren: (state: PostState, action: PayloadAction<Array<Post>>) => {
+    setChildren: (state: PostState, action: PayloadAction<Post[]>) => {
       if (state.selectedPost) {
         state.selectedPost.children = [...action.payload];
       }

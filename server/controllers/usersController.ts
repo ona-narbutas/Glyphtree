@@ -111,7 +111,7 @@ const usersController: UsersController = {
         });
       }
     } else {
-      res.locals.user.signedIn = false;
+      res.locals.user = { signedIn: false };
     }
 
     return next();
