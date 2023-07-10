@@ -27,7 +27,6 @@ app.use('/api/posts', postsRouter);
 
 // Don't send 404 error for unknown routes, instead let react router handle it
 app.use((req: Request, res: Response): Response | void => {
-  console.log('in catchall: ', req.url);
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
