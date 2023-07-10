@@ -12,7 +12,10 @@ import { Link } from 'react-router-dom';
 
 import Auth from './Auth';
 
+import { useAppSelector } from '../hooks';
+
 const Nav = (): JSX.Element => {
+  const user = useAppSelector((state) => state.user);
   const [showAuth, toggleAuth] = useState(false);
 
   return (
@@ -35,7 +38,7 @@ const Nav = (): JSX.Element => {
               </Link>
             </Typography>
             <Button color="inherit" onClick={() => toggleAuth(!showAuth)}>
-              Login
+              {user.signedIn ? user.username : 'Login'}
             </Button>
           </Toolbar>
         </AppBar>
