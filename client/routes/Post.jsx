@@ -64,10 +64,11 @@ const Post = (props) => {
     }
 
     getData();
-  }, [postInState, selectedPost]);
+  }, [postInState]);
 
   const handleChildClick = (target) => {
     setHasChildren(false);
+    setPostInState(false);
     dispatch(selectPost(target));
   };
 
