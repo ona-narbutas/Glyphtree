@@ -1,11 +1,4 @@
-import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 
 import { Link } from 'react-router-dom';
@@ -13,7 +6,6 @@ import { Link } from 'react-router-dom';
 import Auth from './Auth';
 
 import { useAppSelector } from '../hooks';
-import { style } from '@mui/system';
 
 const Nav = (): JSX.Element => {
   const user = useAppSelector((state) => state.user);
