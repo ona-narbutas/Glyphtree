@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import Auth from './Auth';
 
 import { useAppSelector } from '../hooks';
+import { style } from '@mui/system';
 
 const Nav = (): JSX.Element => {
   const user = useAppSelector((state) => state.user);
@@ -20,42 +21,31 @@ const Nav = (): JSX.Element => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <Link style={{ textDecoration: 'none', color: 'white' }} to={'/'}>
-                Glyphtree
-              </Link>
-            </Typography>
-            <Button color="inherit" onClick={() => toggleAuth(!showAuth)}>
-              {user.signedIn ? user.username : 'Login'}
-            </Button>
-          </Toolbar>
-        </AppBar>
-        {/* Render Auth component when Sign In clicked */}
-        {showAuth && (
-          <Dialog
-            open={showAuth}
-            onClose={(event, reason) => {
-              if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
-                return toggleAuth(false);
-              }
-            }}
+      <nav className="sticky top-0 left-0 right-0 w-full flex justify-between px-6 py-4 bg-slate-900 text-stone-100 font-light">
+        <Link className="flex flex-col justify-around" to="/">
+          <h1 className="text-2xl">Glyphtree</h1>
+        </Link>
+        <div>
+          <button
+            className="p-3 hover:underline"
+            onClick={() => toggleAuth(!showAuth)}
           >
-            <Auth toggleAuth={toggleAuth} />
-          </Dialog>
-        )}
-      </Box>
+            {user.signedIn ? user.username : 'Login'}
+          </button>
+        </div>
+      </nav>
+      {showAuth && (
+        <Dialog
+          open={showAuth}
+          onClose={(event, reason) => {
+            if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
+              return toggleAuth(false);
+            }
+          }}
+        >
+          <Auth toggleAuth={toggleAuth} />
+        </Dialog>
+      )}
     </>
   );
 };

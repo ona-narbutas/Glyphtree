@@ -19,8 +19,10 @@ const postsController: PostsController = {
     res: Response,
     next: NextFunction
   ): Promise<Response | void> => {
-    // TO-DO: if user not logged in, build feed of most recent root posts
-    if (!res.locals.user?.signedIn) {
+    console.log('in build feed');
+    // if (!res.locals.user?.signedIn) {
+    if (true) {
+      // We'll want to build feed differently depending on if user is logged in
       const queryText = `SELECT posts.*, users.username FROM posts INNER JOIN users
                         ON posts.author_id = users.user_id
                         WHERE posts.is_root = true`;
