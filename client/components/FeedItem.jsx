@@ -13,6 +13,7 @@ const FeedItem = (props) => {
     <Link
       to={`/posts/${props.post_id}`}
       style={{ textDecoration: 'none', color: 'black' }}
+      className="bg-white"
     >
       <article
         className="feed_item"

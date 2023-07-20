@@ -8,7 +8,7 @@ const Root = () => {
   return (
     <>
       <Nav />
-      <main id="content">
+      <main id="content" className="bg-slate-100 h-screen">
         <WritePrompt />
         <Feed />
       </main>
