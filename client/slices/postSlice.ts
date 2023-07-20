@@ -19,7 +19,7 @@ interface PostState {
   textEntry: string;
   parent_id: number | null;
   is_root: boolean | null;
-  feed: Array<Post>;
+  feed: Post[];
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
   savedPost: Post | null;
   selectedPost: Post | null;
@@ -60,7 +60,7 @@ export const postSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       fetchHomeFeed.fulfilled,
-      (state, action: PayloadAction<Array<Post>>) => {
+      (state, action: PayloadAction<Post[]>) => {
         state.feed = [...action.payload];
       }
     );

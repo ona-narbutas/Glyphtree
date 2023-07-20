@@ -10,7 +10,6 @@ import DefaultElement from './slate_blocks/DefaultElement';
 import Leaf from './slate_blocks/Leaf';
 
 // Slate setup
-
 const CustomEditor = {
   isMarkActive(editor, format) {
     const [match] = Editor.nodes(editor, {
@@ -70,7 +69,6 @@ const Edit = () => {
       ],
     []
   );
-  console.log('initial value: ', initialValue);
 
   const renderElement = useCallback((props) => {
     switch (props.element.children[0].type) {

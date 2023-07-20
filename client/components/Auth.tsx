@@ -45,9 +45,10 @@ const Auth = (props: AuthProps): JSX.Element => {
       },
       body: JSON.stringify(body),
     });
+
     const parsedResponse = await response.json();
-    console.log('parsed response: ', parsedResponse);
     const signedIn = !!parsedResponse.username;
+
     dispatch(
       setUser({
         user_id: parsedResponse.user_id,

@@ -30,11 +30,13 @@ const usersController: UsersController = {
         const email: string = req.body.email;
         const password: string = req.body.password;
 
-        const hash = await bcrypt.hash(password, saltRounds);
-        const queryText = `INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING user_id, username, email`;
-        const values = [username, email, hash];
+        const hash: string = await bcrypt.hash(password, saltRounds);
+        const queryText: string = `INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING user_id, username, email`;
+        const values: string[] = [username, email, hash];
+
         const response = await db.query(queryText, values);
         res.locals.newUser = response.rows[0];
+
         res.cookie(
           'Auth',
           jwt.sign(
@@ -57,14 +59,16 @@ const usersController: UsersController = {
 
         const queryText: string = `SELECT user_id, username, email, password FROM users WHERE email = $1;`;
         const values: string[] = [email];
+
         const user = await db.query(queryText, values);
         res.locals.foundUser = user.rows[0];
-        console.log('found user: ', res.locals.foundUser);
 
         const verificationResult: boolean = await bcrypt.compare(
           password,
           res.locals.foundUser.password
         );
+
+        delete res.locals.foundUser.password;
 
         res.cookie(
           'Auth',

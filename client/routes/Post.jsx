@@ -9,7 +9,7 @@ import FeedItem from '../components/FeedItem';
 import serializeSlate from '../serializeSlate.js';
 import { setChildren, selectPost } from '../slices/postSlice';
 
-const Post = (props) => {
+const Post = () => {
   // Redux
   const selectedPost = useAppSelector((state) => state.post.selectedPost);
 
@@ -36,12 +36,9 @@ const Post = (props) => {
 
     const fetchChildren = async () => {
       const endpoint = `/api/posts/children/${selectedPost.post_id}`;
-      console.log('endpoint: ', endpoint);
-      console.log('selectedPost: ', selectedPost);
 
       const response = await fetch(endpoint);
       const children = await response.json();
-      console.log('children: ', children);
 
       if (Array.isArray(children)) {
         dispatch(setChildren(children));

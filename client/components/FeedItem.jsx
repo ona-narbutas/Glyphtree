@@ -8,6 +8,7 @@ const FeedItem = (props) => {
   const initArr = JSON.parse(props.content);
   const serializedArr = initArr.map((el) => serializeSlate(el));
   const contentString = serializedArr.join('');
+
   return (
     <Link
       to={`/posts/${props.post_id}`}

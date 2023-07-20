@@ -6,8 +6,9 @@ import { ServerError } from '../types';
 import usersRouter from './routes/usersRouter';
 import postsRouter from './routes/postsRouter';
 
-const app: Express = express();
 const { PORT } = process.env;
+
+const app: Express = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -43,7 +44,7 @@ app.use(
       status: 500,
       message: { err: 'Global error handler invoked' },
     };
-    const error = Object.assign({}, defaultErr, err);
+    const error: ServerError = Object.assign({}, defaultErr, err);
     console.log('ERROR: ', error.log);
     return res.status(error.status).json(error.message);
   }
