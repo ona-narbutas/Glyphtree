@@ -113,7 +113,7 @@ const Post = () => {
             <CreateIcon fontSize="large" color="primary" />
           </button>
         </div>
-        <div className="post_children">
+        <div className="post_children flex w-full">
           {hasChildren ? childArr : <p>No children</p>}
         </div>
       </main>

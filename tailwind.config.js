@@ -6,10 +6,17 @@ module.exports = {
     './dist/**/*.{html,js,jsx,ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      scale: {
+        1015: '1.015',
+      },
+      containers: {
+        '2xs': '16rem',
+      },
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/container-queries')],
 };
