@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// import type { Post } from '../../types';
+import type { Post } from '../../types';
 import serializeSlate from '../serializeSlate.js';
 
-const FeedItem = (props) => {
+interface FeedItemProps extends Post {
+  handleClick: (post: Post) => void;
+}
+
+const FeedItem = (props: FeedItemProps) => {
   const initArr = JSON.parse(props.content);
-  const serializedArr = initArr.map((el) => serializeSlate(el));
+  const serializedArr = initArr.map((el: any) => serializeSlate(el));
   const contentString = serializedArr.join('');
 
   return (

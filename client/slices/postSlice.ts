@@ -48,7 +48,7 @@ export const postSlice = createSlice({
     selectPost: (state: PostState, action: PayloadAction<Post>) => {
       state.selectedPost = { ...action.payload };
     },
-    deselectPost: (state: PostState, action: PayloadAction<Post>) => {
+    deselectPost: (state: PostState) => {
       state.selectedPost = null;
     },
     setChildren: (state: PostState, action: PayloadAction<Post[]>) => {

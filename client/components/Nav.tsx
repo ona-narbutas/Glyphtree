@@ -13,7 +13,7 @@ const Nav = (): JSX.Element => {
 
   return (
     <>
-      <nav className="sticky top-0 left-0 right-0 w-full flex justify-between px-6 py-4 bg-slate-900 text-stone-100 font-light">
+      <nav className="sticky top-0 left-0 right-0 w-full flex justify-between px-6 py-4 bg-slate-900 text-stone-100 font-light z-50">
         <Link className="flex flex-col justify-around" to="/">
           <h1 className="text-2xl">Glyphtree</h1>
         </Link>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 // import type { RootState } from '../store';
-// import type { Post } from '../../types';
+import type { Post } from '../../types';
 import FeedItem from './FeedItem';
 import { buildFeed, deselectPost, selectPost } from '../slices/postSlice';
 import { setUser } from '../slices/userSlice';
@@ -33,7 +33,7 @@ const Feed = () => {
     dispatch(deselectPost());
   }, []);
 
-  const handleClick = (target) => {
+  const handleClick = (target: Post) => {
     dispatch(selectPost(target));
   };
 
