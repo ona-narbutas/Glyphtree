@@ -9,6 +9,8 @@ import FeedItem from '../components/FeedItem';
 import serializeSlate from '../serializeSlate.js';
 import { setChildren, selectPost } from '../slices/postSlice';
 
+import { Post } from '../../types';
+
 const Post = () => {
   // Redux
   const selectedPost = useAppSelector((state) => state.post.selectedPost);
@@ -24,7 +26,7 @@ const Post = () => {
   // On mount, check for post in state. If none, fetch from backend and run again. If in state, fetch children.
   useEffect(() => {
     // if state is not set from UI navigation, fetch selected post data
-    const fetchSelectedPost = async (postId) => {
+    const fetchSelectedPost = async () => {
       const sliceAfter = document.location.href.lastIndexOf('/');
       const id = document.location.href.slice(sliceAfter + 1);
 
@@ -35,6 +37,9 @@ const Post = () => {
     };
 
     const fetchChildren = async () => {
+      if (selectedPost === null) {
+        throw new Error('no post selected');
+      }
       const endpoint = `/api/posts/children/${selectedPost.post_id}`;
 
       const response = await fetch(endpoint);
@@ -52,9 +57,9 @@ const Post = () => {
       if (!postInState) {
         await fetchSelectedPost();
         setPostInState(true);
-      } else {
+      } else if (selectedPost) {
         const initArr = JSON.parse(selectedPost.content);
-        const serializedArr = initArr.map((el) => serializeSlate(el));
+        const serializedArr = initArr.map((el: any) => serializeSlate(el));
         setContentString(serializedArr.join(''));
       }
       fetchChildren();
@@ -63,14 +68,14 @@ const Post = () => {
     getData();
   }, [postInState]);
 
-  const handleChildClick = (target) => {
+  const handleChildClick = (target: Post) => {
     setHasChildren(false);
     setPostInState(false);
     dispatch(selectPost(target));
   };
 
-  const childArr = [];
-  if (hasChildren) {
+  const childArr: JSX.Element[] = [];
+  if (selectedPost?.children && hasChildren) {
     selectedPost.children.forEach((el) => {
       const childProps = {
         post_id: el.post_id,
