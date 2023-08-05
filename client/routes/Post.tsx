@@ -18,10 +18,10 @@ const Post = () => {
   const dispatch = useAppDispatch();
 
   // Local State
-  const [postInState, setPostInState] = useState(!!selectedPost);
-  const [hasChildren, setHasChildren] = useState(false);
-  const [contentString, setContentString] = useState('');
-  const [editorVisible, setEditorVisible] = useState(false);
+  const [postInState, setPostInState] = useState<boolean>(!!selectedPost);
+  const [hasChildren, setHasChildren] = useState<boolean>(false);
+  const [contentString, setContentString] = useState<string>('');
+  const [editorVisible, setEditorVisible] = useState<boolean>(false);
 
   // On mount, check for post in state. If none, fetch from backend and run again. If in state, fetch children.
   useEffect(() => {

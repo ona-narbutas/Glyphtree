@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import type { Post } from '../../types';
 import serializeSlate from '../serializeSlate.js';
@@ -40,7 +41,9 @@ const FeedItem = (props: FeedItemProps) => {
           </div>
           <div className="text-sm w-1/4 p-2">
             <div className="font-bold">{props.username}</div>
-            <div className="font-light">{props.created_at}</div>
+            <div className="font-light">
+              {format(new Date(props.created_at), 'hh:mmbb MM/dd/yyyy')}
+            </div>
           </div>
         </article>
       </div>
