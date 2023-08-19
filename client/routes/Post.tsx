@@ -98,7 +98,7 @@ const Post = () => {
     <>
       <Nav />
       <main>
-        <div className="read_edit_container">
+        <div className="read_edit_container relative">
           <article className="selected_post">
             <div className="post_metadata"></div>
             <div
@@ -112,6 +112,7 @@ const Post = () => {
             </div>
           )}
           <button
+            className="absolute bottom-1.5 right-1.5 rounded-full border-slate-400 border-2 h-16 w-16"
             id="continue_button"
             onClick={() => setEditorVisible(!editorVisible)}
           >

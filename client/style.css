@@ -48,12 +48,3 @@ body {
 .edit_panel {
   min-width: 50%;
 }
-
-#continue_button {
-  border-radius: 50%;
-  height: 4rem;
-  width: 4rem;
-  position: absolute;
-  right: 10rem;
-  bottom: 1rem;
-}
