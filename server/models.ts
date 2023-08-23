@@ -20,6 +20,13 @@ CREATE TABLE posts(
   author_id int NOT NULL
 )
 
+  posts was later updated to include reference to tree titles:
+  ALTER TABLE posts
+  ADD COLUMN title_id int;
+
+  ALTER TABLE posts
+  ADD CONSTRAINT fk_posts_tree_titles FOREIGN KEY (title_id) REFERENCES tree_titles (title_id);
+
 TREE_TITLES:
 CREATE TABLE tree_titles(
   title_id serial PRIMARY KEY,
