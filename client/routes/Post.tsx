@@ -27,11 +27,14 @@ const Post = () => {
   useEffect(() => {
     // if state is not set from UI navigation, fetch selected post data
     const fetchSelectedPost = async () => {
+      console.log('fetchSelectedPost() fired');
       const sliceAfter = document.location.href.lastIndexOf('/');
       const id = document.location.href.slice(sliceAfter + 1);
+      console.log('post id: ', id);
 
       const response = await fetch(`/api/posts/${id}`);
       const post = await response.json();
+      console.log('dispatching select post for post: ', post);
 
       dispatch(selectPost(post));
     };
@@ -55,6 +58,7 @@ const Post = () => {
 
     async function getData() {
       if (!postInState) {
+        console.log('no post in state, fetching selected post from server');
         await fetchSelectedPost();
         setPostInState(true);
       } else if (selectedPost) {
@@ -71,6 +75,8 @@ const Post = () => {
   const handleChildClick = (target: Post) => {
     setHasChildren(false);
     setPostInState(false);
+    console.log('selecting child post');
+    console.log('target: ', target);
     dispatch(selectPost(target));
   };
 
@@ -87,6 +93,7 @@ const Post = () => {
         parent_id: el.parent_id,
         author_id: el.author_id,
         username: el.username,
+        title: el.title ? el.title : '',
         handleClick: handleChildClick,
       };
 
@@ -100,7 +107,16 @@ const Post = () => {
       <main>
         <div className="read_edit_container relative">
           <article className="selected_post">
-            <div className="post_metadata"></div>
+            <div className="post_metadata">
+              <h3 className="font-bold mb-2">
+                {!selectedPost?.is_root && (
+                  <span className="italic">from </span>
+                )}
+                {selectedPost && selectedPost.title?.length
+                  ? selectedPost.title
+                  : 'Untitled'}
+              </h3>
+            </div>
             <div
               className="selected_post_content"
               dangerouslySetInnerHTML={{ __html: contentString }}

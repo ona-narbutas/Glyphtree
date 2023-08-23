@@ -17,6 +17,7 @@ export interface Post {
   author_id: number;
   username: string;
   children?: Post[] | null;
+  title?: string;
 }
 
 export interface UserInputType {

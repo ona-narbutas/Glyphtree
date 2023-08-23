@@ -50,6 +50,7 @@ const Feed = () => {
       parent_id: el.parent_id,
       author_id: el.author_id,
       username: el.username,
+      title: el.title,
       handleClick: handleClick,
     };
 

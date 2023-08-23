@@ -23,6 +23,7 @@ interface PostState {
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
   savedPost: Post | null;
   selectedPost: Post | null;
+  title: string | null;
 }
 
 const initialState: PostState = {
@@ -33,6 +34,7 @@ const initialState: PostState = {
   loading: 'idle',
   savedPost: null,
   selectedPost: null,
+  title: null,
 };
 
 export const postSlice = createSlice({

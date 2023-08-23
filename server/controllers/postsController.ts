@@ -122,6 +122,7 @@ const postsController: PostsController = {
     next: NextFunction
   ): Promise<Response | void> => {
     try {
+      console.log('finding children of post ', req.params.parentId);
       const parent_id = req.params.parentId;
 
       const queryText = `SELECT posts.*, tree_titles.title, users.username 

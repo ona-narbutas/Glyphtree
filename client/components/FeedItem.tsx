@@ -30,10 +30,12 @@ const FeedItem = (props: FeedItemProps) => {
               parent_id: props.parent_id,
               author_id: props.author_id,
               username: props.username,
+              title: props.title,
             })
           }
         >
           <div className="overflow-clip w-3/4 p-2 text-transparent bg-clip-text bg-gradient-to-b from-slate-950 to-slate-400">
+            {props.title && <h3 className="font-bold mb-2">{props.title}</h3>}
             <div
               className=""
               dangerouslySetInnerHTML={{ __html: contentString }}
