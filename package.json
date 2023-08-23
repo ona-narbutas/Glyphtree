@@ -9,7 +9,7 @@
     "dev": "run-p twdev webpack:dev nodemon:start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "twdev": "npx tailwindcss -i ./client/style.css -o ./dist/style.css --watch",
-    "webpack:dev": "npm run twdev & NODE_ENV=development webpack serve --open",
+    "webpack:dev": "npm run twdev & NODE_ENV=development webpack serve",
     "nodemon:start": "nodemon server/server.ts"
   },
   "author": "Ona Narbutas (ona.narbutas@gmail.com)",

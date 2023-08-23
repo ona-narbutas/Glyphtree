@@ -20,21 +20,32 @@ const postsController: PostsController = {
     next: NextFunction
   ): Promise<Response | void> => {
     console.log('in build feed');
-    // if (!res.locals.user?.signedIn) {
-    if (true) {
-      // We'll want to build feed differently depending on if user is logged in
-      const queryText = `SELECT posts.*, users.username FROM posts INNER JOIN users
-                        ON posts.author_id = users.user_id
-                        WHERE posts.is_root = true`;
-      const feedData = await db.query(queryText, []);
-      res.locals.feed = feedData.rows;
-      // TO-DO: if user is logged in, build feet of posts by followed authors + most recent roots
-    } else {
-      const queryText = `SELECT * FROM posts`;
-      const feedData = await db.query(queryText, []);
-      res.locals.feed = feedData.rows;
+    try {
+      // if (!res.locals.user?.signedIn) {
+      if (true) {
+        // We'll want to build feed differently depending on if user is logged in
+        const queryText = `SELECT posts.*, tree_titles.title, users.username 
+                          FROM posts LEFT OUTER JOIN users
+                          ON posts.author_id = users.user_id
+                          LEFT OUTER JOIN tree_titles
+                          ON posts.title_id = tree_titles.title_id
+                          WHERE posts.is_root = true`;
+        const feedData = await db.query(queryText, []);
+        res.locals.feed = feedData.rows;
+        // TO-DO: if user is logged in, build feet of posts by followed authors + most recent roots
+      } else {
+        const queryText = `SELECT * FROM posts`;
+        const feedData = await db.query(queryText, []);
+        res.locals.feed = feedData.rows;
+      }
+      return next();
+    } catch (err) {
+      return next({
+        log: 'Error in postsController.buildFeed: ' + err,
+        status: 500,
+        message: { err: 'Error building feed' },
+      });
     }
-    return next();
   },
 
   createPost: async (
@@ -85,8 +96,11 @@ const postsController: PostsController = {
     try {
       const post_id = req.params.postId;
 
-      const queryText = `SELECT posts.*, users.username FROM posts INNER JOIN users
-      ON posts.post_id = $1`;
+      const queryText = `SELECT posts.*, tree_titles.title, users.username 
+      FROM posts LEFT OUTER JOIN users
+      ON posts.post_id = $1
+      LEFT OUTER JOIN tree_titles
+      ON posts.title_id = tree_titles.title_id`;
       const values = [post_id];
 
       const dbRes = await db.query(queryText, values);
@@ -94,7 +108,11 @@ const postsController: PostsController = {
       console.log('response: ', res.locals.post);
       return next();
     } catch (err) {
-      return next(err);
+      return next({
+        log: 'Error in postsController.findPost: ' + err,
+        status: 500,
+        message: { err: 'Error finding post' },
+      });
     }
   },
 
@@ -106,8 +124,11 @@ const postsController: PostsController = {
     try {
       const parent_id = req.params.parentId;
 
-      const queryText = `SELECT posts.*, users.username FROM posts INNER JOIN users
+      const queryText = `SELECT posts.*, tree_titles.title, users.username 
+      FROM posts LEFT OUTER JOIN users
       ON posts.author_id = users.user_id
+      LEFT OUTER JOIN tree_titles
+      ON posts.title_id = tree_titles.title_id
       WHERE posts.parent_id = $1`;
       const values = [parent_id];
 
@@ -117,7 +138,11 @@ const postsController: PostsController = {
       res.locals.children = dbRes.rows.length ? dbRes.rows : 'no children';
       return next();
     } catch (err) {
-      return next(err);
+      return next({
+        log: 'Error in postsController.findChildren: ' + err,
+        status: 500,
+        message: { err: 'Error finding children' },
+      });
     }
   },
 };
