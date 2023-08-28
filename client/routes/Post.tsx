@@ -43,6 +43,7 @@ const Post = () => {
       if (selectedPost === null) {
         throw new Error('no post selected');
       }
+      console.log('fetching children for ' + selectedPost.post_id);
       const endpoint = `/api/posts/children/${selectedPost.post_id}`;
 
       const response = await fetch(endpoint);
@@ -70,11 +71,11 @@ const Post = () => {
     }
 
     getData();
-  }, [postInState]);
+  }, [postInState, hasChildren]);
 
   const handleChildClick = (target: Post) => {
     setHasChildren(false);
-    setPostInState(false);
+    // setPostInState(false);
     console.log('selecting child post');
     console.log('target: ', target);
     dispatch(selectPost(target));
@@ -93,7 +94,7 @@ const Post = () => {
         parent_id: el.parent_id,
         author_id: el.author_id,
         username: el.username,
-        title: el.title ? el.title : '',
+        title: el.title,
         handleClick: handleChildClick,
       };
 
